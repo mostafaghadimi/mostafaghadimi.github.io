@@ -1,0 +1,27 @@
+
+.blog-avatar {
+    border-radius: 10px;
+}
+
+.blog-centralize {
+    text-align: center;
+}
+
+.blog-social {
+    padding: 0 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* grid-gap: 10px; */
+}
+
+.blog-social > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.blog-social > div > a > img {
+    display: block;
+}
