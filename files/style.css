@@ -39,3 +39,10 @@
 .blog-justify {
     text-align: justify;
 }
+
+.blog-details {
+    border: 0;
+    padding: 0;
+    text-align: left;
+    padding-left: 20px;
+}
