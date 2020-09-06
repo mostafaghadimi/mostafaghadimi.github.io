@@ -424,11 +424,11 @@
 
     <script>
         // registering service worker
-        const serviceWorkerUrl = "https://github.com/mostafaghadimi/mostafaghadimi.github.io/blob/master/serviceWorker.js";
+        const serviceWorkerUrl="https://github.com/mostafaghadimi/mostafaghadimi.github.io/blob/master/serviceWorker.js";
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function() {
                 navigator.serviceWorker
-                .register(serviceWorkerUrl)
+                .register("./serviceWorker.js")
                 .then(res => console.log("service worker registered"))
                 .catch(err => console.log("service worker not registered", err))
             })
