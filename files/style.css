@@ -61,7 +61,8 @@
 }
 
 .dl-button {
-    display: block;
+    display: none;
+    /* display: block; */
     margin: auto;
     padding: 10px;
     border: none;
