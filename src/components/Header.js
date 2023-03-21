@@ -3,19 +3,19 @@ import React from "react";
 function Header() {
     return (
         <header id="header">
-            <ul id="buttons01" class="buttons">
+            <ul id="buttons01" className="buttons">
             <li>
-                <a href="#home" class="button n01">
+                <a href="#home" className="button n01">
                 Home
                 </a>
             </li>
             <li>
-                <a href="#about" class="button n02">
+                <a href="#about" className="button n02">
                 About
                 </a>
             </li>
             <li>
-                <a href="#contact" class="button n03">
+                <a href="#contact" className="button n03">
                 Contact
                 </a>
             </li>
