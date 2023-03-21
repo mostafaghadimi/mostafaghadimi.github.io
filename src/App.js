@@ -1,8 +1,9 @@
 import './assets/stylesheets/copied.css'
 import './assets/stylesheets/normalizer.css'
-import Header from './components/Header.js'
+import Header from './components/Header'
 import Introduction from './components/Introduction'
-import Footer from './components/Footer.js'
+import About from './components/About'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <div className='inner'>
         <Header/>
         <Introduction/>
+        <About/>
         <Footer/>
       </div>
     </div>
