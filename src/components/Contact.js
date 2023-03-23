@@ -3,7 +3,7 @@ import React from "react";
 
 function Contact() {
     return (
-        <section id="contact-section" class="inactive" style={{"display": "none"}}>
+        <section id="contact-section" className="inactive" style={{"display": "none"}}>
             <p id="text01">
                 Contact
             </p>
@@ -11,7 +11,7 @@ function Contact() {
                 Here are the ways to get in touch with me:
             </p>
             <p id="text02">
-                <span class="p">
+                <span className="p">
                     <a href="https://linkedin.com/in/mostafaghadimi">
                         My Linkedin Profile
                     </a>
