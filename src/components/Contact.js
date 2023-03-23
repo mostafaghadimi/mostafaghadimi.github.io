@@ -1,5 +1,7 @@
 import React from "react";
 
+import { info, socialMedia, contact } from "../config/variables";
+
 
 function Contact(props) {
     return (
@@ -8,16 +10,16 @@ function Contact(props) {
                 Contact
             </p>
             <p id="text07">
-                Here are the ways to get in touch with me:
+                { contact.p1 }
             </p>
             <p id="text02">
                 <span className="p">
-                    <a href="https://linkedin.com/in/mostafaghadimi">
+                    <a href={socialMedia.linkedin}>
                         My Linkedin Profile
                     </a>
                     <br/>
-                    <a href="mailto:mostafa.ghadimi@yahoo.com">
-                        mostafa.ghadimi@yahoo.com
+                    <a href={`mailto:${info.email}`}>
+                        { info.email }
                     </a>
                 </span>
             </p>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import './assets/stylesheets/copied.css'
+import './assets/stylesheets/style.css'
 import './assets/stylesheets/normalizer.css'
 import Header from './components/Header'
 import Introduction from './components/Introduction'
@@ -10,11 +10,10 @@ import Footer from './components/Footer'
 
 function App() {
   const [activeClass, setActiveClass] = useState({ value: 'home' });
-  console.log('Initial activeClass state:', activeClass);
-  
   const setActiveClassValue = (newValue) => {
-    setActiveClass(newValue);
-    console.log('new value:', newValue)
+    setTimeout(() => {
+      setActiveClass(newValue);
+    }, 100);
   }
 
   useEffect(() => {
@@ -25,9 +24,9 @@ function App() {
     <div id='main'>
       <div className='inner'>
         <Header activeClass={activeClass} setActiveClassValue={setActiveClassValue}/>
-        <Introduction activeClass={activeClass} setActiveClassValue={setActiveClassValue}/>
-        <About activeClass={activeClass} setActiveClassValue={setActiveClassValue}/>
-        <Contact activeClass={activeClass} setActiveClassValue={setActiveClassValue}/>
+        <Introduction activeClass={activeClass} setActiveClassValue={setActiveClassValue} key='home'/>
+        <About activeClass={activeClass} setActiveClassValue={setActiveClassValue} key='about'/>
+        <Contact activeClass={activeClass} setActiveClassValue={setActiveClassValue} key='contact'/>
         <Footer/>
       </div>
     </div>

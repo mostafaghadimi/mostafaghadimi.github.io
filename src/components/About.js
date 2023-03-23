@@ -1,5 +1,7 @@
 import React from "react";
 
+import { about } from "../config/variables"
+
 
 function About(props){
     return (
@@ -9,13 +11,13 @@ function About(props){
             </p>
             <p id="text06">
                 <span className="p">
-                    Hi there! My name is Mostafa Ghadimi and I am a Data Engineer based in Tehran, Iran. I am passionate about Big Data, Parallel Algorithms, Distributed Systems, System Design and Architecture.
+                    { about.p1 }
                 </span>
                 <span className="p">
-                    Throughout my career, I have had the opportunity to work on a wide range of projects and have developed a diverse set of skills that enable me to contribute to various stages of the project lifecycle, work collaboratively with cross-functional teams, solve complex problems, leverage cutting-edge technologies and tools and stay up-to-date with industry trends and best practices. I am always looking for new challenges and opportunities to learn and grow, and am committed to delivering high-quality work that meets the needs of my clients and colleagues.
+                    { about.p2 }
                 </span>
                 <span className="p">
-                    If you'd like to learn more about me or my work, please feel free to&nbsp;
+                    { about.p3 }
                     <a href="#contact">
                         get in touch
                     </a>
