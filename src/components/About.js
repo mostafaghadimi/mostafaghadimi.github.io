@@ -1,9 +1,9 @@
 import React from "react";
 
 
-function About(){
+function About(props){
     return (
-        <section id="about-section" className="inactive" style={{"display": "none"}}>
+        <section id="about-section" className={props.activeClass == 'about' ? 'active': 'inactive'}>
             <p id="text05">
                 About
             </p>
