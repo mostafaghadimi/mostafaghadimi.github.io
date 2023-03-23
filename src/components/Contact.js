@@ -3,7 +3,7 @@ import React from "react";
 
 function Contact(props) {
     return (
-        <section id="contact-section" className={props.activeClass == 'contact' ? 'active': 'inactive'}>
+        <section id="contact-section" className={props.activeClass.value == 'contact' ? 'active': 'inactive'}>
             <p id="text01">
                 Contact
             </p>
