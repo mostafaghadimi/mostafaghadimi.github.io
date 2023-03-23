@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 
-function Header() {
+function Header(props) {
+    const handleClick = (value) => {
+        props.setActiveClassValue(value);
+    }
     return (
         <header id="header">
             <ul id="buttons01" className="buttons">
-            <li>
+            <li onClick={() => handleClick('home')}>
                 <a href="#home" className="button n01">
                 Home
                 </a>
             </li>
-            <li>
+            <li onClick={() => handleClick('about')}>
                 <a href="#about" className="button n02">
                 About
                 </a>
             </li>
-            <li>
+            <li onClick={() => handleClick('contact')}>
                 <a href="#contact" className="button n03">
                 Contact
                 </a>
