@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import './assets/stylesheets/copied.css'
 import './assets/stylesheets/normalizer.css'
@@ -11,10 +11,15 @@ import Footer from './components/Footer'
 function App() {
   const [activeClass, setActiveClass] = useState({ value: 'home' });
   console.log('Initial activeClass state:', activeClass);
+  
   const setActiveClassValue = (newValue) => {
     setActiveClass(newValue);
     console.log('new value:', newValue)
   }
+
+  useEffect(() => {
+    setActiveClass({ value: 'home' });
+  }, []);
   return (
    <div id='wrapper'>
     <div id='main'>

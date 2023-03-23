@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 
 function Header(props) {
     const handleClick = (value) => {
-        props.setActiveClassValue(value);
+        props.setActiveClassValue({value});
     }
     return (
         <header id="header">

@@ -3,7 +3,7 @@ import React from "react";
 
 function About(props){
     return (
-        <section id="about-section" className={props.activeClass == 'about' ? 'active': 'inactive'}>
+        <section id="about-section" className={props.activeClass.value == 'about' ? 'active': 'inactive'}>
             <p id="text05">
                 About
             </p>
@@ -15,10 +15,10 @@ function About(props){
                     Throughout my career, I have had the opportunity to work on a wide range of projects and have developed a diverse set of skills that enable me to contribute to various stages of the project lifecycle, work collaboratively with cross-functional teams, solve complex problems, leverage cutting-edge technologies and tools and stay up-to-date with industry trends and best practices. I am always looking for new challenges and opportunities to learn and grow, and am committed to delivering high-quality work that meets the needs of my clients and colleagues.
                 </span>
                 <span className="p">
-                    If you'd like to learn more about me or my work, please feel free to 
+                    If you'd like to learn more about me or my work, please feel free to&nbsp;
                     <a href="#contact">
-                        Get in touch
-                        </a>
+                        get in touch
+                    </a>
                     !
                 </span>
             </p>
