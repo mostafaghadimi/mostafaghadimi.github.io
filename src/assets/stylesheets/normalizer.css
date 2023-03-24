@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Sofia Pro';
+    text-decoration: none;
+    outline: none;
+}
+
+a {
+    color: inherit;
+}
+
+
+@font-face {
+    font-family: 'Sofia Pro';
+    src: url('../fonts/SofiaProLight.eot');
+    src: url('../fonts/SofiaProLight.eot?#iefix') format('embedded-opentype'), url('../fonts/SofiaProLight.woff') format('woff'), url('../fonts/SofiaProLight.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/SourceSansPro-Regular.eot');
+    src: url('../fonts/SourceSansPro-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/SourceSansPro-Regular.woff2') format('woff'), url('../fonts/SourceSansPro-Regular.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+body {
+    direction: ltr;
+}
