@@ -1,0 +1,93 @@
+---
+import Container from "./Container.astro";
+import PipelineDiagram from "./PipelineDiagram.astro";
+---
+
+<section id="intro" class="relative pt-20 lg:pt-24 pb-16 sm:pb-24">
+  <Container wide>
+    <!-- Small status line — sets the "live system" tone -->
+    <div
+      class="flex flex-wrap items-center gap-x-5 gap-y-2 mb-10"
+      data-reveal
+    >
+      <span class="inline-flex items-center gap-2 font-mono text-xs text-[var(--fg-muted)]">
+        <span class="dot-pulse" aria-hidden="true"></span>
+        open to senior roles
+      </span>
+      <span class="font-mono text-xs text-[var(--fg-subtle)]">
+        based in <span class="text-[var(--fg)]">Istanbul</span>
+      </span>
+      <span class="font-mono text-xs text-[var(--fg-subtle)]">
+        remote · global
+      </span>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-y-10 lg:gap-x-10 items-start">
+      <div class="lg:col-span-8 xl:col-span-8" data-reveal>
+        <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--fg-subtle)] mb-4">
+          Mostafa Ghadimi
+        </p>
+
+        <h1 class="font-display text-[3.25rem] sm:text-[4.5rem] lg:text-[5.25rem] leading-[0.96] tracking-[-0.025em] text-[var(--fg)]">
+          I build
+          <span class="italic font-medium text-[var(--accent)]">pipelines</span>
+          <br class="hidden sm:block" />
+          and the
+          <span class="italic font-medium">agents</span>
+          they feed.
+        </h1>
+
+        <p class="mt-6 max-w-xl text-[1.05rem] sm:text-[1.15rem] text-[var(--fg-muted)] leading-[1.6]">
+          Senior Data &amp; AI Engineer, 6+ years. Currently at{" "}
+          <span class="text-[var(--fg)] font-medium">Vendoroo</span>{" "}
+          <span class="text-[var(--fg-subtle)] text-[0.92em]">(San Francisco)</span>{" "}
+          — shipping LangGraph maintenance agents in production.
+        </p>
+
+        <div class="mt-9 flex flex-wrap items-center gap-3">
+          <a
+            href="#projects"
+            class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-[var(--bg)] bg-[var(--fg)] hover:bg-[var(--accent)] transition-colors"
+          >
+            Case studies
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-[var(--fg)] border border-[var(--rule-strong)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+          >
+            Get in touch
+          </a>
+        </div>
+      </div>
+
+      <!-- Right column: compact stat list -->
+      <aside class="lg:col-span-4 xl:col-span-4 lg:pt-12" data-reveal>
+        <dl class="border-t border-[var(--rule)] divide-y divide-[var(--rule)]">
+          <div class="flex items-baseline justify-between py-3.5">
+            <dt class="text-sm text-[var(--fg-muted)]">years shipping</dt>
+            <dd class="font-display text-2xl text-[var(--fg)]">6<span class="text-[var(--accent)]">+</span></dd>
+          </div>
+          <div class="flex items-baseline justify-between py-3.5">
+            <dt class="text-sm text-[var(--fg-muted)]">OLAP speed-up</dt>
+            <dd class="font-display text-2xl text-[var(--fg)]">10<span class="text-[var(--accent)]">×</span></dd>
+          </div>
+          <div class="flex items-baseline justify-between py-3.5">
+            <dt class="text-sm text-[var(--fg-muted)]">agent messages / mo</dt>
+            <dd class="font-display text-2xl text-[var(--fg)]">M<span class="text-[var(--accent)]">+</span></dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+
+    <!-- The pipeline centrepiece — two parallel flat tracks -->
+    <div class="mt-16 sm:mt-20" data-reveal>
+      <div class="border border-[var(--rule)] bg-[var(--bg-elevated)] p-5 sm:p-8 overflow-hidden">
+        <PipelineDiagram />
+      </div>
+    </div>
+  </Container>
+</section>

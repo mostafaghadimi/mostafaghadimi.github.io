@@ -1,0 +1,126 @@
+---
+import Container from "./Container.astro";
+import { site } from "~/data/site";
+
+const year = new Date().getFullYear();
+const buildIso = new Date().toISOString();
+
+const socials = [
+  { href: `https://github.com/${site.author.github}`, label: "github" },
+  { href: `https://www.linkedin.com/in/${site.author.linkedin}/`, label: "linkedin" },
+  { href: `https://t.me/${site.author.telegram}`, label: "telegram" },
+  { href: `https://stackoverflow.com/users/${site.author.stackoverflow}`, label: "stack overflow" },
+  { href: `mailto:${site.author.email}`, label: "email" },
+];
+---
+
+<footer class="mt-20 border-t border-[var(--rule)]">
+  <Container wide class="py-10">
+    <!-- Top tape divider, like a section break -->
+    <div class="tape mb-8 max-w-xs" aria-hidden="true"></div>
+
+    <div class="grid lg:grid-cols-12 gap-y-8 lg:gap-x-10 items-start">
+      <div class="lg:col-span-7">
+        <p class="font-display text-xl text-[var(--fg)] leading-snug max-w-md">
+          End of the pipeline.
+        </p>
+        <p class="mt-3 text-sm text-[var(--fg-muted)] max-w-md">
+          Built with
+          <a
+            href="https://astro.build"
+            target="_blank"
+            rel="noreferrer noopener"
+            class="underline decoration-dotted underline-offset-4 hover:text-[var(--accent)]"
+          >Astro</a>{" "}
+          +
+          <a
+            href="https://tailwindcss.com"
+            target="_blank"
+            rel="noreferrer noopener"
+            class="underline decoration-dotted underline-offset-4 hover:text-[var(--accent)]"
+          >Tailwind</a>. Installable as a PWA.
+        </p>
+
+        <p class="mt-5 font-mono text-[11px] text-[var(--fg-subtle)]">
+          $ git log -1 --format=%cI &nbsp;·&nbsp;
+          <time datetime={buildIso} class="text-[var(--fg-muted)]">{buildIso}</time>
+        </p>
+      </div>
+
+      <div class="lg:col-span-5 flex flex-col gap-5">
+        <div class="flex flex-wrap items-center gap-2">
+          <button
+            id="install-pwa-btn"
+            type="button"
+            class="hidden inline-flex items-center gap-2 px-3 py-2 text-xs font-medium text-[var(--fg)] border border-[var(--rule-strong)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+            aria-label="Install this site as an app"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M12 5v14"></path>
+              <path d="M5 12h14"></path>
+            </svg>
+            install as app
+          </button>
+        </div>
+
+        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-y-1.5 gap-x-4 font-mono text-xs">
+          {
+            socials.map((s) => (
+              <li>
+                <a
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel={s.href.startsWith("http") ? "noreferrer noopener" : undefined}
+                  class="inline-flex items-center gap-2 text-[var(--fg-muted)] hover:text-[var(--accent)] transition-colors"
+                >
+                  <span class="text-[var(--fg-subtle)]">→</span>
+                  {s.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <p class="font-mono text-[11px] text-[var(--fg-subtle)] mt-2">
+          © {year} <span class="text-[var(--fg-muted)]">{site.author.name}</span>.
+          all rights reserved. no LLMs were harmed.
+        </p>
+      </div>
+    </div>
+  </Container>
+</footer>
+
+<script is:inline>
+  /* PWA install prompt wiring — only show the button once Chrome/Edge fires
+     beforeinstallprompt, and hide it when we're running in standalone mode. */
+  (function () {
+    const btn = document.getElementById("install-pwa-btn");
+    if (!btn) return;
+    let deferredPrompt = null;
+
+    const isStandalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      window.navigator.standalone === true;
+    if (isStandalone) return;
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      btn.classList.remove("hidden");
+    });
+
+    btn.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      try {
+        await deferredPrompt.userChoice;
+      } catch (_) {}
+      deferredPrompt = null;
+      btn.classList.add("hidden");
+    });
+
+    window.addEventListener("appinstalled", () => {
+      btn.classList.add("hidden");
+    });
+  })();
+</script>

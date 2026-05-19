@@ -1,0 +1,97 @@
+---
+/**
+ * Subtle full-bleed background of slowly drifting dots — visual metaphor for
+ * an event stream running behind the page. Drawn on a low-DPR canvas so
+ * it costs ~0 CPU; respects prefers-reduced-motion.
+ */
+---
+
+<canvas
+  id="stream-bg"
+  aria-hidden="true"
+  class="fixed inset-0 -z-10 pointer-events-none w-full h-full"
+></canvas>
+
+<script is:inline>
+  (function () {
+    const canvas = document.getElementById("stream-bg");
+    if (!canvas) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    const particles = [];
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function seed() {
+      const count = Math.max(40, Math.min(110, Math.floor((width * height) / 22000)));
+      particles.length = 0;
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          v: 0.10 + Math.random() * 0.35, // px/frame, very slow
+          r: 0.6 + Math.random() * 1.6,
+          a: 0.05 + Math.random() * 0.20,
+        });
+      }
+    }
+
+    function color() {
+      // Re-read the accent so dark-mode swaps land for free.
+      const styles = getComputedStyle(document.documentElement);
+      const c = (styles.getPropertyValue("--accent") || "#cc5500").trim();
+      return c;
+    }
+
+    let accent = color();
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = accent;
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.v;
+        if (p.x - p.r > width) {
+          p.x = -p.r;
+          p.y = Math.random() * height;
+        }
+        ctx.globalAlpha = p.a;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      raf = requestAnimationFrame(draw);
+    }
+
+    let raf = 0;
+    function start() {
+      cancelAnimationFrame(raf);
+      resize();
+      seed();
+      raf = requestAnimationFrame(draw);
+    }
+
+    window.addEventListener("resize", () => {
+      resize();
+      seed();
+    });
+    window.addEventListener("themechange", () => {
+      accent = color();
+    });
+    start();
+  })();
+</script>

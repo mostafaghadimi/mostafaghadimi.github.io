@@ -1,0 +1,85 @@
+---
+import Container from "./Container.astro";
+import SectionHeading from "./SectionHeading.astro";
+
+/* Three short, distilled capabilities. */
+const capabilities = [
+  {
+    key: "data",
+    title: "Data platforms, end-to-end",
+    body:
+      "Streaming + warehouse + orchestration, blank-page to production. Kafka, dbt, ClickHouse, Airflow, Kubernetes.",
+  },
+  {
+    key: "agents",
+    title: "Production LLM agents",
+    body:
+      "LangGraph + LangSmith, shipped with the same engineering bar as a data service — tested, traced, hot-swappable.",
+  },
+  {
+    key: "people",
+    title: "Hires &amp; tech-lead",
+    body:
+      "Ran data-team hiring at a major fintech (20+ interviews). Senior IC and tech-lead in small teams.",
+  },
+];
+---
+
+<section id="about" class="relative py-20 sm:py-28 scroll-mt-12">
+  <Container wide>
+    <SectionHeading
+      stageId="about"
+      title="Short version."
+      description="Six years building the unglamorous parts so the interesting parts can ship."
+    />
+
+    <div class="grid lg:grid-cols-12 gap-y-10 lg:gap-x-12">
+      <!-- Distilled bio -->
+      <div class="lg:col-span-7" data-reveal>
+        <p class="text-[1.05rem] sm:text-[1.15rem] text-[var(--fg)] leading-[1.7]">
+          I write the boring parts — partitioning, indexes, retry semantics,
+          schema drift — so dashboards, models, and agents can ship without
+          fear.
+        </p>
+        <p class="mt-5 text-base text-[var(--fg-muted)] leading-[1.75]">
+          Six years across{" "}
+          <span class="text-[var(--fg)] italic">Digikala</span>{" "}
+          (Iran's largest e-commerce — OLAP on billions of rows),{" "}
+          <span class="text-[var(--fg)] italic">Mofid Securities</span>{" "}
+          (greenfield analytics for Iran's #1 brokerage),{" "}
+          <span class="text-[var(--fg)] italic">SnappPay</span>{" "}
+          (data-tech specialist at Iran's BNPL leader),{" "}
+          <span class="text-[var(--fg)] italic">Offerland</span>{" "}
+          (Vancouver PropTech — cut AWS ~40%), and now{" "}
+          <span class="text-[var(--fg)] italic">Vendoroo</span>{" "}
+          <span class="text-[var(--fg-subtle)] text-[0.95em]">(San Francisco)</span>{" "}
+          on LangGraph maintenance agents.
+        </p>
+      </div>
+
+      <!-- Capability list — minimal, indexed -->
+      <div class="lg:col-span-5" data-reveal>
+        <ul class="border-t border-[var(--rule)]">
+          {
+            capabilities.map((c, i) => (
+              <li class="border-b border-[var(--rule)] py-5 flex items-start gap-4">
+                <span class="shrink-0 font-mono text-[10px] mt-1 text-[var(--accent)] tabular-nums">
+                  0{i + 1}
+                </span>
+                <div class="min-w-0">
+                  <h3
+                    class="text-[15px] font-semibold text-[var(--fg)] leading-tight"
+                    set:html={c.title}
+                  />
+                  <p class="mt-1.5 text-[13.5px] text-[var(--fg-muted)] leading-[1.6]">
+                    {c.body}
+                  </p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </Container>
+</section>
