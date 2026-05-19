@@ -1,0 +1,89 @@
+[
+  {
+    "id": "data-engineering",
+    "category": "Data Engineering",
+    "items": [
+      "Apache Airflow",
+      "dbt",
+      "Apache Spark",
+      "ETL / ELT",
+      "CDC",
+      "Data Quality",
+      "Warehouse Modelling",
+      "Data Vault",
+      "Star / Snowflake"
+    ]
+  },
+  {
+    "id": "streaming",
+    "category": "Streaming",
+    "items": ["Apache Kafka", "Strimzi", "Debezium", "Kafka Connect", "Schema Registry", "KRaft"]
+  },
+  {
+    "id": "databases-analytics",
+    "category": "Databases & Analytics",
+    "items": ["ClickHouse", "PostgreSQL", "MSSQL", "Oracle", "Metabase", "DataHub"]
+  },
+  {
+    "id": "ai-agents",
+    "category": "AI & Agents",
+    "items": [
+      "LangChain",
+      "LangGraph",
+      "LangSmith",
+      "FastAPI",
+      "Celery",
+      "OpenAI",
+      "Tool Calling (@tool)",
+      "Skill Registries",
+      "Agent Middleware",
+      "Multimodal / Vision",
+      "MCP",
+      "Prompt Engineering"
+    ]
+  },
+  {
+    "id": "cloud-iac",
+    "category": "Cloud & IaC",
+    "items": [
+      "AWS (EC2, ECS, ECR, CloudWatch)",
+      "Kubernetes",
+      "RKE / RKE2",
+      "Kubespray",
+      "Docker",
+      "Helm",
+      "Terraform",
+      "Ansible"
+    ]
+  },
+  {
+    "id": "devops-observability",
+    "category": "DevOps & Observability",
+    "items": [
+      "ArgoCD",
+      "GitLab CI",
+      "GitHub Actions",
+      "HashiCorp Vault",
+      "Prometheus",
+      "Grafana",
+      "Elasticsearch"
+    ]
+  },
+  {
+    "id": "leadership",
+    "category": "Leadership & Process",
+    "items": [
+      "Hiring & Interviewing (20+)",
+      "1:1s",
+      "Mentoring",
+      "Architectural Decisions",
+      "Agile (Scrum, OKRs)",
+      "Technical Writing"
+    ]
+  },
+  {
+    "id": "languages",
+    "category": "Programming Languages",
+    "items": ["Python", "SQL", "Bash"]
+  }
+]

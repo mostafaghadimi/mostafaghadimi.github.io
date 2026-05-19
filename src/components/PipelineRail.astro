@@ -1,0 +1,307 @@
+---
+/**
+ * Top header + fixed left side-rail navigation. The rail visualises each
+ * section as a stage in the data pipeline, with a vertical "topic line" that
+ * fills as you scroll — your current position is the consumer offset.
+ *
+ * On mobile the rail collapses to a slim top header with a stage indicator.
+ */
+import { stages } from "~/data/stages";
+import { site } from "~/data/site";
+---
+
+<!-- Mobile / small-screen top header -->
+<header
+  id="rail-top"
+  class="lg:hidden fixed inset-x-0 top-0 z-40 border-b border-[var(--rule)] bg-[color-mix(in_oklab,var(--bg)_88%,transparent)] backdrop-blur"
+>
+  <div class="flex items-center justify-between px-4 h-12 max-w-screen-md mx-auto">
+    <a href="#intro" class="inline-flex items-center gap-2 group">
+      <span
+        class="font-mono text-xs text-[var(--accent)] tracking-widest"
+        aria-hidden="true">MG</span
+      >
+      <span class="text-sm font-medium text-[var(--fg)] group-hover:text-[var(--accent)]">
+        mostafa.ghadimi
+      </span>
+    </a>
+    <div class="flex items-center gap-1.5">
+      <a href="/resume.pdf" class="text-xs font-mono text-[var(--fg-muted)] hover:text-[var(--accent)] px-2 py-1" download>
+        resume.pdf
+      </a>
+      <button
+        id="rail-theme"
+        type="button"
+        aria-label="Toggle theme"
+        class="inline-flex h-7 w-7 items-center justify-center rounded text-[var(--fg-muted)] hover:text-[var(--accent)]"
+      >
+        <svg id="rail-moon-m" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg id="rail-sun-m" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" class="hidden">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+      <button
+        id="rail-menu"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="rail-menu-panel"
+        class="inline-flex h-7 w-7 items-center justify-center rounded text-[var(--fg-muted)] hover:text-[var(--accent)]"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div
+    id="rail-menu-panel"
+    class="hidden border-t border-[var(--rule)] px-4 py-3 max-w-screen-md mx-auto"
+  >
+    <ol class="grid grid-cols-2 gap-x-3 gap-y-1.5">
+      {
+        stages.map((s) => (
+          <li>
+            <a
+              href={`#${s.id}`}
+              class="block py-1 font-mono text-xs text-[var(--fg-muted)] hover:text-[var(--accent)]"
+              data-rail-link={s.id}
+            >
+              <span class="text-[var(--fg-subtle)]">{s.index}</span> · {s.label.toLowerCase()}
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</header>
+
+<!-- Desktop fixed left rail -->
+<aside
+  id="rail"
+  aria-label="Pipeline navigation"
+  class="hidden lg:flex fixed top-0 left-0 z-40 h-screen w-[14rem] flex-col border-r border-[var(--rule)] bg-[color-mix(in_oklab,var(--bg)_92%,transparent)] backdrop-blur-sm"
+>
+  <!-- Brand -->
+  <a
+    href="#intro"
+    class="group flex items-center gap-3 px-6 pt-7 pb-5"
+    aria-label={`${site.author.name} — home`}
+  >
+    <span
+      class="inline-flex h-9 w-9 items-center justify-center border border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-mono text-sm font-bold text-[var(--accent)] group-hover:border-[var(--accent)] transition-colors"
+      aria-hidden="true"
+    >
+      MG
+    </span>
+    <span>
+      <span class="block text-sm font-semibold text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors">
+        Mostafa Ghadimi
+      </span>
+      <span class="block font-mono text-[10px] text-[var(--fg-subtle)] tracking-wider">
+        senior data &amp; ai engineer
+      </span>
+    </span>
+  </a>
+
+  <hr class="border-[var(--rule)]" />
+
+  <!-- Pipeline stages list -->
+  <nav class="flex-1 overflow-y-auto px-3 py-4" aria-label="Sections">
+    <p class="px-3 mb-3 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--fg-subtle)]">
+      Pipeline
+    </p>
+    <ol class="relative">
+      <!-- vertical pipe -->
+      <span
+        aria-hidden="true"
+        class="absolute left-[1.125rem] top-2 bottom-2 w-px bg-[var(--rule)]"
+      ></span>
+      <!-- progress fill -->
+      <span
+        id="rail-progress"
+        aria-hidden="true"
+        class="absolute left-[1.125rem] top-2 w-px bg-[var(--accent)] transition-[height] duration-200"
+        style="height:0;"
+      ></span>
+
+      {
+        stages.map((s) => (
+          <li>
+            <a
+              href={`#${s.id}`}
+              data-rail-link={s.id}
+              class="relative flex items-center gap-3 pl-3 pr-3 py-2 group rounded"
+            >
+              <span
+                aria-hidden="true"
+                class="rail-dot relative z-[1] inline-flex h-2.5 w-2.5 shrink-0 rounded-full border border-[var(--rule-strong)] bg-[var(--bg)]"
+              />
+              <span class="flex-1 min-w-0">
+                <span class="block font-mono text-[10px] text-[var(--fg-subtle)] tracking-wider">
+                  {s.index} · {s.hint}
+                </span>
+                <span class="block text-sm font-medium text-[var(--fg-muted)] group-hover:text-[var(--fg)] transition-colors rail-label">
+                  {s.label}
+                </span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+
+  <!-- Bottom controls -->
+  <div class="px-5 pb-6 pt-3 border-t border-[var(--rule)]">
+    <a
+      href="/resume.pdf"
+      download
+      class="flex items-center justify-between w-full px-3 py-2 border border-[var(--rule-strong)] text-sm font-medium text-[var(--fg)] hover:text-[var(--bg)] hover:bg-[var(--accent)] hover:border-[var(--accent)] transition-colors"
+    >
+      <span class="inline-flex items-center gap-2">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        resume.pdf
+      </span>
+      <span class="font-mono text-[10px] text-[var(--fg-subtle)] group-hover:text-current">53 KB</span>
+    </a>
+
+    <div class="mt-3 flex items-center justify-between">
+      <button
+        id="rail-theme-d"
+        type="button"
+        aria-label="Toggle theme"
+        class="inline-flex h-8 w-8 items-center justify-center rounded text-[var(--fg-muted)] hover:text-[var(--accent)] border border-transparent hover:border-[var(--rule-strong)]"
+      >
+        <svg id="rail-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg id="rail-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" class="hidden">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+      <div class="flex items-center gap-1 font-mono text-[10px] text-[var(--fg-subtle)]">
+        <span class="dot-pulse !h-1.5 !w-1.5" aria-hidden="true"></span>
+        live
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  (function () {
+    // ----- Theme toggle (used by both top header + side rail buttons) -----
+    function syncIcons() {
+      var isDark = document.documentElement.classList.contains("dark");
+      ["rail-moon", "rail-moon-m"].forEach((id) => {
+        var el = document.getElementById(id);
+        if (el) el.classList.toggle("hidden", isDark);
+      });
+      ["rail-sun", "rail-sun-m"].forEach((id) => {
+        var el = document.getElementById(id);
+        if (el) el.classList.toggle("hidden", !isDark);
+      });
+    }
+    function toggleTheme() {
+      var isDark = document.documentElement.classList.toggle("dark");
+      try {
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      } catch (_) {}
+      syncIcons();
+      window.dispatchEvent(new Event("themechange"));
+    }
+    syncIcons();
+    ["rail-theme", "rail-theme-d"].forEach((id) => {
+      var btn = document.getElementById(id);
+      if (btn) btn.addEventListener("click", toggleTheme);
+    });
+
+    // ----- Mobile menu -----
+    var mBtn = document.getElementById("rail-menu");
+    var mPanel = document.getElementById("rail-menu-panel");
+    if (mBtn && mPanel) {
+      mBtn.addEventListener("click", () => {
+        var hidden = mPanel.classList.toggle("hidden");
+        mBtn.setAttribute("aria-expanded", String(!hidden));
+      });
+      mPanel.querySelectorAll("a").forEach((a) =>
+        a.addEventListener("click", () => {
+          mPanel.classList.add("hidden");
+          mBtn.setAttribute("aria-expanded", "false");
+        }),
+      );
+    }
+
+    // ----- Scroll progress + active section highlight -----
+    var progressEl = document.getElementById("rail-progress");
+    var links = Array.from(document.querySelectorAll("[data-rail-link]"));
+    var sections = links
+      .map((a) => document.getElementById(a.getAttribute("data-rail-link")))
+      .filter(Boolean);
+
+    function setActive(id) {
+      links.forEach((a) => {
+        var match = a.getAttribute("data-rail-link") === id;
+        a.classList.toggle("is-active", match);
+        var label = a.querySelector(".rail-label");
+        if (label) {
+          label.classList.toggle("text-[var(--fg)]", match);
+          label.classList.toggle("font-semibold", match);
+        }
+        var dot = a.querySelector(".rail-dot");
+        if (dot) {
+          dot.classList.toggle("!bg-[var(--accent)]", match);
+          dot.classList.toggle("!border-[var(--accent)]", match);
+        }
+      });
+    }
+
+    function updateProgress() {
+      if (!progressEl) return;
+      var doc = document.documentElement;
+      var maxScroll = doc.scrollHeight - window.innerHeight;
+      if (maxScroll <= 0) {
+        progressEl.style.height = "100%";
+        return;
+      }
+      var pct = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+      var totalHeight = progressEl.parentElement
+        ? progressEl.parentElement.offsetHeight - 16
+        : 0;
+      progressEl.style.height = pct * totalHeight + "px";
+    }
+
+    if ("IntersectionObserver" in window && sections.length) {
+      var io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) setActive(e.target.id);
+          });
+        },
+        { rootMargin: "-35% 0px -55% 0px", threshold: 0 },
+      );
+      sections.forEach((s) => io.observe(s));
+    }
+
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    updateProgress();
+  })();
+</script>
+
+<style>
+  /* Active link gets a faint accent background and stronger label */
+  [data-rail-link].is-active {
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+</style>

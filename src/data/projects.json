@@ -1,0 +1,66 @@
+[
+  {
+    "id": "snapppay-bnpl",
+    "title": "SnappPay BNPL Data Platform",
+    "subtitle": "One-command cluster, dbt-on-ClickHouse, reusable CI/CD framework",
+    "company": "SnappPay",
+    "period": "2024 — 2025",
+    "summary": "Owned hiring and the long-term shape of the data org at Iran's largest BNPL fintech. Cut new-cluster provisioning from days to a single command and turned ad-hoc SQL into a reviewable dbt project on ClickHouse.",
+    "metrics": [
+      { "label": "Cluster provisioning", "value": "Days → 1 cmd" },
+      { "label": "Technical interviews owned", "value": "20+" },
+      { "label": "Promotion to Tech Specialist", "value": "5 months" },
+      { "label": "dbt marts modelled", "value": "5 domains" }
+    ],
+    "stack": ["ClickHouse", "dbt", "Airflow", "Strimzi Kafka", "ArgoCD", "Ansible", "GitLab CI"],
+    "accentColor": "violet"
+  },
+  {
+    "id": "mofid-greenfield",
+    "title": "Mofid Greenfield Analytics Platform",
+    "subtitle": "Brokerage's first analytics platform — SQL Server → ClickHouse CDC",
+    "company": "Mofid Securities",
+    "period": "2023 — 2024",
+    "summary": "Designed and built the first analytics platform for Iran's #1 brokerage from a blank page. Custom CDC framework auto-generated destination tables and handled Jalali dates and late updates with zero manual intervention. Bare-metal Kubernetes with RKE, ArgoCD, and a KRaft Kafka cluster feeding the pipeline.",
+    "metrics": [
+      { "label": "Investor accounts served", "value": "Millions" },
+      { "label": "Migration", "value": "SQL Server → ClickHouse" },
+      { "label": "DQ onboarding", "value": "YAML config" },
+      { "label": "Platform", "value": "Bare-metal K8s" }
+    ],
+    "stack": ["ClickHouse", "Kafka KRaft", "Kubernetes", "RKE", "ArgoCD", "Airflow", "Metabase", "Helm"],
+    "accentColor": "sky"
+  },
+  {
+    "id": "digikala-backbone",
+    "title": "Digikala 'Backbone' DS Platform",
+    "subtitle": "Notebook-to-production in one button — 15+ data-science services",
+    "company": "Digikala",
+    "period": "2021 — 2023",
+    "summary": "Co-built Backbone, the internal platform that gave data scientists a one-button path from notebook to production. Introduced Apache Pinot with hand-tuned star-tree indexes — up to 10× query speed-up on billions of rows of clickstream OLAP.",
+    "metrics": [
+      { "label": "DS services on platform", "value": "15+" },
+      { "label": "OLAP speed-up", "value": "Up to 10×" },
+      { "label": "Rows queried", "value": "Billions" },
+      { "label": "K8s YAML for DS teams", "value": "Zero" }
+    ],
+    "stack": ["Apache Pinot", "Apache Spark", "Airflow", "Kafka", "ArgoCD", "Kustomize", "Snowplow"],
+    "accentColor": "emerald"
+  },
+  {
+    "id": "vendoroo-tenant-ai",
+    "title": "Vendoroo Tenant AI Agent",
+    "subtitle": "Maintenance-triage agent serving millions of messages, 1k+ property managers",
+    "company": "Vendoroo",
+    "period": "2025 — Present",
+    "summary": "Ship the tenant-facing maintenance-triage agent across thousands of properties. Modularised the agent graph — conversation policy split from middleware (input cleaning, context batching, reply formatting), each layer independently testable. Vision pre-step converts tenant photos into structured context for downstream nodes.",
+    "metrics": [
+      { "label": "Monthly volume growth", "value": "~3× in 6mo" },
+      { "label": "Property managers", "value": "1,000+" },
+      { "label": "Photos processed", "value": "100K+" },
+      { "label": "Messages handled", "value": "Millions" }
+    ],
+    "stack": ["LangChain", "LangGraph", "LangSmith", "FastAPI", "OpenAI", "Multimodal", "Python"],
+    "accentColor": "amber"
+  }
+]

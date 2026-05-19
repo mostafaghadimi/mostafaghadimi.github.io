@@ -1,0 +1,174 @@
+---
+import { getCollection } from "astro:content";
+import Container from "./Container.astro";
+import SectionHeading from "./SectionHeading.astro";
+
+const experiences = (await getCollection("experience")).map((e) => e.data);
+
+experiences.sort((a, b) => {
+  if (a.period.end === null && b.period.end !== null) return -1;
+  if (a.period.end !== null && b.period.end === null) return 1;
+  return b.period.start.localeCompare(a.period.start);
+});
+
+// Newest event has the highest offset — readers naturally read top→bottom
+const total = experiences.length;
+function offsetFor(i: number) {
+  return String(total - 1 - i).padStart(4, "0");
+}
+function isoFromPeriodStart(s: string) {
+  // Period.start is YYYY-MM; pretend it's the 1st at 09:00 UTC.
+  return `${s}-01T09:00:00.000Z`;
+}
+---
+
+<section id="experience" class="relative py-20 sm:py-28 scroll-mt-12">
+  <Container wide>
+    <SectionHeading
+      stageId="experience"
+      title="Career, as a topic log."
+      description="Newest offset first. One role per event."
+    />
+
+    <!-- Topic header bar — minimal single line -->
+    <div
+      class="flex items-center justify-between mb-8 pb-2 border-b border-[var(--rule)] font-mono text-[11px] text-[var(--fg-muted)]"
+      data-reveal
+    >
+      <span>
+        topic:&nbsp;<span class="text-[var(--fg)]">career.mostafa-ghadimi</span>
+      </span>
+      <span class="inline-flex items-center gap-1.5 text-[var(--fg-subtle)]">
+        <span class="dot-pulse" aria-hidden="true"></span>
+        lag = 0
+      </span>
+    </div>
+
+    <ol class="relative" data-reveal>
+      <!-- vertical topic rail -->
+      <span
+        aria-hidden="true"
+        class="absolute left-[1.25rem] sm:left-8 top-0 bottom-0 w-px bg-[var(--rule)]"
+      ></span>
+
+      {
+        experiences.map((exp, i) => {
+          const ongoing = exp.period.end === null;
+          const iso = isoFromPeriodStart(exp.period.start);
+          return (
+            <li class="relative pl-12 sm:pl-20 pb-10 last:pb-2">
+              {/* offset bug */}
+              <div class="absolute left-0 top-3 flex items-center gap-1 sm:gap-2">
+                <span
+                  class={`relative z-[1] inline-flex h-3 w-3 rounded-full border bg-[var(--bg)] ${
+                    ongoing
+                      ? "border-[var(--accent)]"
+                      : "border-[var(--rule-strong)]"
+                  }`}
+                >
+                  {ongoing && (
+                    <span class="absolute inset-0.5 rounded-full bg-[var(--accent)]" />
+                  )}
+                </span>
+                <span
+                  class={`hidden sm:inline-block font-mono text-[10px] text-[var(--fg-subtle)] tracking-wider`}
+                >
+                  @{offsetFor(i)}
+                </span>
+              </div>
+
+              <article class="border border-[var(--rule)] bg-[var(--bg-elevated)] hover:border-[var(--rule-strong)] transition-colors">
+                {/* Event headers — single compact line */}
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 sm:px-5 py-2 border-b border-[var(--rule)] bg-[color-mix(in_srgb,var(--bg)_60%,var(--bg-elevated))] font-mono text-[10px] text-[var(--fg-subtle)]">
+                  <span>
+                    offset.<span class="text-[var(--fg)]">{offsetFor(i)}</span>
+                  </span>
+                  <span>
+                    ts.<time datetime={iso} class="text-[var(--fg)]">{exp.period.label}</time>
+                  </span>
+                  <span class="truncate">
+                    key.<span class="text-[var(--fg)]">{exp.id}</span>
+                  </span>
+                </div>
+
+                {/* Body */}
+                <div class="px-4 sm:px-5 py-5">
+                  <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
+                    <div class="min-w-0">
+                      <h3 class="font-display text-xl sm:text-2xl leading-tight text-[var(--fg)]">
+                        {exp.role}
+                      </h3>
+                      <p class="mt-1 text-sm text-[var(--fg-muted)]">
+                        at{" "}
+                        {exp.href ? (
+                          <a
+                            href={exp.href}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            class="text-[var(--fg)] underline decoration-dotted underline-offset-4 hover:text-[var(--accent)]"
+                          >
+                            {exp.company}
+                          </a>
+                        ) : (
+                          <span class="text-[var(--fg)]">{exp.company}</span>
+                        )}
+                        <span class="text-[var(--fg-subtle)]"> · {exp.location}</span>
+                      </p>
+                    </div>
+                    {ongoing && (
+                      <span class="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[var(--accent)] border border-[color-mix(in_srgb,var(--accent)_35%,transparent)] bg-[var(--accent-soft)] px-2 py-0.5">
+                        <span class="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+                        live
+                      </span>
+                    )}
+                  </div>
+
+                  {exp.context && (
+                    <p class="mt-3 text-[13.5px] text-[var(--fg-muted)] leading-relaxed">
+                      {exp.context}
+                    </p>
+                  )}
+
+                  {exp.tags.length > 0 && (
+                    <ul class="mt-4 flex flex-wrap gap-1.5">
+                      {exp.tags.map((t) => (
+                        <li class="tag">{t}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Bullets are collapsed by default — first scan stays light. */}
+                  <details class="group/det mt-4 border-t border-[var(--rule)] pt-3">
+                    <summary class="cursor-pointer list-none inline-flex items-center gap-1.5 font-mono text-[11px] text-[var(--fg-subtle)] hover:text-[var(--accent)] select-none">
+                      <svg
+                        width="9"
+                        height="9"
+                        viewBox="0 0 12 12"
+                        class="transition-transform group-open/det:rotate-90"
+                        aria-hidden="true"
+                      >
+                        <path d="M3 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      <span class="group-open/det:hidden">show what I shipped ({exp.bullets.length})</span>
+                      <span class="hidden group-open/det:inline">hide</span>
+                    </summary>
+                    <ul class="mt-3 space-y-2">
+                      {exp.bullets.map((b) => (
+                        <li class="flex gap-3 text-[14px] text-[var(--fg-muted)] leading-[1.65]">
+                          <span aria-hidden="true" class="text-[var(--accent)] font-mono shrink-0 select-none">
+                            ▸
+                          </span>
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </div>
+              </article>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </Container>
+</section>

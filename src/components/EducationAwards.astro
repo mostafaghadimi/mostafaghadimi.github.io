@@ -1,0 +1,124 @@
+---
+import { getCollection } from "astro:content";
+import Container from "./Container.astro";
+import SectionHeading from "./SectionHeading.astro";
+
+const education = (await getCollection("education")).map((e) => e.data);
+const awards = (await getCollection("awards")).map((a) => a.data);
+const certifications = (await getCollection("certifications")).map((c) => c.data);
+---
+
+<section id="education" class="relative py-20 sm:py-28 scroll-mt-12">
+  <Container wide>
+    <SectionHeading
+      stageId="education"
+      title="Credentials."
+      description="Degrees, awards, certifications."
+    />
+
+    <div class="grid lg:grid-cols-3 gap-x-10 gap-y-12" data-reveal>
+      <!-- Education -->
+      <div class="lg:col-span-1">
+        <div class="flex items-center justify-between border-b-2 border-[var(--fg)] pb-1.5">
+          <h3 class="font-display text-lg text-[var(--fg)]">Education</h3>
+          <span class="font-mono text-[10px] text-[var(--fg-subtle)]">
+            n = {education.length}
+          </span>
+        </div>
+        <ol class="divide-y divide-[var(--rule)]">
+          {
+            education.map((e) => (
+              <li class="py-5">
+                <p class="font-mono text-[10px] text-[var(--fg-subtle)] tracking-wider">
+                  {e.period} · {e.location}
+                </p>
+                <h4 class="mt-1 font-display text-[1.05rem] leading-snug text-[var(--fg)]">
+                  {e.degree}
+                </h4>
+                <p class="mt-0.5 text-sm text-[var(--fg-muted)] italic">
+                  {e.school}
+                </p>
+                {e.detail && (
+                  <p class="mt-2 text-[13px] text-[var(--fg-muted)] leading-relaxed">
+                    {e.detail}
+                  </p>
+                )}
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <!-- Awards -->
+      <div class="lg:col-span-1">
+        <div class="flex items-center justify-between border-b-2 border-[var(--fg)] pb-1.5">
+          <h3 class="font-display text-lg text-[var(--fg)]">Awards</h3>
+          <span class="font-mono text-[10px] text-[var(--fg-subtle)]">
+            n = {awards.length}
+          </span>
+        </div>
+        <ol class="divide-y divide-[var(--rule)]">
+          {
+            awards.map((a) => (
+              <li class="py-5">
+                <p class="font-mono text-[10px] text-[var(--fg-subtle)] tracking-wider">
+                  {a.year} {a.location && `· ${a.location}`}
+                </p>
+                <h4 class="mt-1 font-display text-[1.05rem] leading-snug text-[var(--fg)]">
+                  {a.title}
+                </h4>
+                <p class="mt-0.5 text-sm text-[var(--fg-muted)] italic">
+                  {a.source}
+                </p>
+              </li>
+            ))
+          }
+        </ol>
+
+        <!-- Languages, slotted in to fill the column -->
+        <div class="mt-10">
+          <div class="flex items-center justify-between border-b-2 border-[var(--fg)] pb-1.5">
+            <h3 class="font-display text-lg text-[var(--fg)]">Languages</h3>
+          </div>
+          <ul class="divide-y divide-[var(--rule)]">
+            <li class="py-3 flex items-baseline justify-between gap-3">
+              <span class="text-sm text-[var(--fg)]">English</span>
+              <span class="font-mono text-[11px] text-[var(--fg-muted)]">professional</span>
+            </li>
+            <li class="py-3 flex items-baseline justify-between gap-3">
+              <span class="text-sm text-[var(--fg)]">Persian</span>
+              <span class="font-mono text-[11px] text-[var(--fg-muted)]">native</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="lg:col-span-1">
+        <div class="flex items-center justify-between border-b-2 border-[var(--fg)] pb-1.5">
+          <h3 class="font-display text-lg text-[var(--fg)]">Certifications</h3>
+          <span class="font-mono text-[10px] text-[var(--fg-subtle)]">
+            n = {certifications.length}
+          </span>
+        </div>
+        <ol class="divide-y divide-[var(--rule)]">
+          {
+            certifications.map((c) => (
+              <li class="py-5">
+                <p class="font-mono text-[10px] text-[var(--fg-subtle)] tracking-wider">
+                  {c.date} {c.location && `· ${c.location}`}
+                </p>
+                <h4 class="mt-1 font-display text-[1.05rem] leading-snug text-[var(--fg)]">
+                  {c.title}
+                </h4>
+                <p class="mt-0.5 text-sm text-[var(--fg-muted)] italic">
+                  {c.issuer}
+                </p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </Container>
+</section>

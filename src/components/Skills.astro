@@ -1,0 +1,136 @@
+---
+import { getCollection } from "astro:content";
+import Container from "./Container.astro";
+import SectionHeading from "./SectionHeading.astro";
+
+const order = [
+  "data-engineering",
+  "streaming",
+  "databases-analytics",
+  "ai-agents",
+  "cloud-iac",
+  "devops-observability",
+  "leadership",
+  "languages",
+];
+
+const skills = (await getCollection("skills"))
+  .map((s) => s.data)
+  .sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+
+// Convert a category name into a SQL-snake_case table name
+function snake(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+// Pick a plausible-looking SQL type per skill so the schema reads like a
+// real table. We map by simple heuristics.
+function sqlType(item: string): string {
+  const lower = item.toLowerCase();
+  if (/years?|count|20\+/.test(lower)) return "INT";
+  if (/version|date|since/.test(lower)) return "DATE";
+  if (lower.length < 6) return "VARCHAR(16)";
+  if (lower.length < 14) return "VARCHAR(32)";
+  return "TEXT";
+}
+
+const stageByCat: Record<string, string> = {
+  "data-engineering": "store",
+  streaming: "stream",
+  "databases-analytics": "store",
+  "ai-agents": "agent",
+  "cloud-iac": "serve",
+  "devops-observability": "serve",
+  leadership: "sink",
+  languages: "source",
+};
+---
+
+<section id="skills" class="relative py-20 sm:py-28 scroll-mt-12">
+  <Container wide>
+    <SectionHeading
+      stageId="skills"
+      title="Skills, as a schema."
+      description="Eight tables. One column per skill."
+    />
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-x-6 gap-y-6" data-reveal>
+      {
+        skills.map((s) => {
+          const tbl = snake(s.category);
+          const stage = stageByCat[s.id] ?? "agent";
+          // First skill is the "primary key" semantically
+          const rows = s.items.map((item, i) => ({
+            name: item,
+            type: sqlType(item),
+            pk: i === 0,
+          }));
+          return (
+            <div
+              class="border border-[var(--rule)] bg-[var(--bg-elevated)] hover:border-[var(--rule-strong)] transition-colors overflow-hidden"
+              style={`--cat-color: var(--stage-${stage});`}
+            >
+              {/* DDL header */}
+              <div class="px-5 py-3 border-b border-[var(--rule)] flex items-center justify-between gap-3 bg-[color-mix(in_srgb,var(--bg)_55%,var(--bg-elevated))]">
+                <p class="font-mono text-[13px] text-[var(--fg-muted)] truncate">
+                  <span class="text-[var(--fg-subtle)]">CREATE TABLE</span>{" "}
+                  <span class="text-[var(--fg)] font-semibold">public.{tbl}</span>
+                  <span class="text-[var(--fg-subtle)]"> (</span>
+                </p>
+                <span class="font-mono text-[10px] uppercase tracking-wider px-1.5 py-0.5 border border-[var(--rule-strong)]"
+                  style="color:var(--cat-color);">
+                  {s.category}
+                </span>
+              </div>
+
+              {/* Rows */}
+              <ol class="divide-y divide-[var(--rule)] font-mono text-[12.5px] leading-[1.65]">
+                {rows.map((r, i) => (
+                  <li class="grid grid-cols-[auto_1fr_auto] items-center gap-x-3 px-5 py-1.5 hover:bg-[var(--bg-soft)]">
+                    <span class="text-[var(--fg-subtle)] tabular-nums select-none">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span class="truncate text-[var(--fg)]">
+                      {r.name}
+                    </span>
+                    <span class="text-[var(--fg-subtle)] flex items-center gap-2">
+                      <span>{r.type}</span>
+                      {r.pk && (
+                        <span
+                          class="text-[10px] uppercase tracking-wider px-1 py-0.5 border"
+                          style="border-color:var(--cat-color); color:var(--cat-color);"
+                          title="primary key — the one I lead with"
+                        >
+                          PK
+                        </span>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+
+              {/* DDL footer */}
+              <div class="px-5 py-2 border-t border-[var(--rule)] bg-[color-mix(in_srgb,var(--bg)_55%,var(--bg-elevated))] flex items-center justify-between">
+                <p class="font-mono text-[12px] text-[var(--fg-muted)]">
+                  <span class="text-[var(--fg-subtle)]">);</span>
+                </p>
+                <p class="font-mono text-[10px] text-[var(--fg-subtle)]">
+                  rows: <span class="text-[var(--fg)]">{rows.length}</span>
+                </p>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <!-- A small footer with a SQL comment -->
+    <p class="mt-8 font-mono text-[11px] text-[var(--fg-subtle)]" data-reveal>
+      -- <span class="italic">primary keys are the ones I lead with on a project. all columns are production-tested.</span>
+    </p>
+  </Container>
+</section>

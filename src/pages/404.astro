@@ -1,0 +1,52 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import Container from "~/components/Container.astro";
+---
+
+<BaseLayout title="404 — page not found — Mostafa Ghadimi">
+  <main class="min-h-[100dvh] flex items-center">
+    <Container class="py-20">
+      <div class="max-w-xl">
+        <p class="log-line">
+          <span class="stage">[STAGE 99]</span>
+          <span class="ts">15:42:99.404Z</span>
+          <span class="prompt">user@portfolio:~$</span>
+          <span class="cmd">cat $REQUESTED_PATH</span>
+        </p>
+        <p class="mt-3 font-mono text-sm text-[var(--fg-muted)]">
+          cat: $REQUESTED_PATH: <span class="text-[var(--accent)]">No such file or directory</span>
+        </p>
+
+        <h1 class="mt-8 font-display text-5xl sm:text-6xl leading-[1.02] tracking-[-0.025em] text-[var(--fg)]">
+          That page didn't<br />
+          quite exist.
+        </h1>
+        <p class="mt-5 text-[var(--fg-muted)]">
+          Looks like the link is broken or the URL was hand-typed. A few
+          things that <em>do</em> exist:
+        </p>
+
+        <ul class="mt-6 font-mono text-sm divide-y divide-[var(--rule)] border-y border-[var(--rule)]">
+          <li>
+            <a href="/" class="flex items-center justify-between gap-3 px-2 py-3 hover:bg-[var(--bg-soft)] hover:text-[var(--accent)] transition-colors">
+              <span><span class="text-[var(--fg-subtle)]">→</span> /</span>
+              <span class="text-[var(--fg-subtle)] text-xs">home</span>
+            </a>
+          </li>
+          <li>
+            <a href="/#projects" class="flex items-center justify-between gap-3 px-2 py-3 hover:bg-[var(--bg-soft)] hover:text-[var(--accent)] transition-colors">
+              <span><span class="text-[var(--fg-subtle)]">→</span> /#projects</span>
+              <span class="text-[var(--fg-subtle)] text-xs">case studies</span>
+            </a>
+          </li>
+          <li>
+            <a href="/#contact" class="flex items-center justify-between gap-3 px-2 py-3 hover:bg-[var(--bg-soft)] hover:text-[var(--accent)] transition-colors">
+              <span><span class="text-[var(--fg-subtle)]">→</span> /#contact</span>
+              <span class="text-[var(--fg-subtle)] text-xs">get in touch</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </Container>
+  </main>
+</BaseLayout>

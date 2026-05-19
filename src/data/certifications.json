@@ -1,0 +1,27 @@
+[
+  {
+    "id": "terraform-associate",
+    "title": "HashiCorp Certified: Terraform Associate",
+    "issuer": "KodeKloud",
+    "date": "Aug 2024"
+  },
+  {
+    "id": "aws-clf-c02",
+    "title": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "issuer": "KodeKloud",
+    "date": "Mar 2024"
+  },
+  {
+    "id": "dataops-fundamentals",
+    "title": "DataOps Fundamentals",
+    "issuer": "DataKitchen",
+    "date": "Jan 2024"
+  },
+  {
+    "id": "devops-bootcamp",
+    "title": "DevOps Engineering Bootcamp",
+    "issuer": "Rahnema College",
+    "location": "Iran",
+    "date": "Mar 2022"
+  }
+]

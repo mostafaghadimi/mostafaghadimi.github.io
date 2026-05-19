@@ -1,0 +1,92 @@
+[
+  {
+    "id": "data-burst-roadmap",
+    "full_name": "data-burst/data-engineering-roadmap",
+    "description": "A curated, opinionated roadmap for becoming a Data Engineer — paths, resources, and milestones.",
+    "language": "Markdown",
+    "stargazers_count": 485,
+    "forks_count": 0,
+    "html_url": "https://github.com/data-burst/data-engineering-roadmap",
+    "featured": true
+  },
+  {
+    "id": "data-burst-airflow-git-sync",
+    "full_name": "data-burst/airflow-git-sync",
+    "description": "Sync DAG changes from Git to Airflow — clean GitOps workflow for orchestration.",
+    "language": "Python",
+    "stargazers_count": 74,
+    "forks_count": 0,
+    "html_url": "https://github.com/data-burst/airflow-git-sync",
+    "featured": true
+  },
+  {
+    "id": "data-burst-airflow-monitoring",
+    "full_name": "data-burst/airflow-monitoring-and-alerting",
+    "description": "Dockerized monitoring stack for Apache Airflow — Prometheus, Grafana, alert rules.",
+    "language": "Docker",
+    "stargazers_count": 36,
+    "forks_count": 0,
+    "html_url": "https://github.com/data-burst/airflow-monitoring-and-alerting",
+    "featured": true
+  },
+  {
+    "id": "data-burst-awesome-de",
+    "full_name": "data-burst/awesome-data-engineering",
+    "description": "A curated list of awesome Data Engineering resources, tools, and reading.",
+    "language": "Markdown",
+    "stargazers_count": 20,
+    "forks_count": 0,
+    "html_url": "https://github.com/data-burst/awesome-data-engineering",
+    "featured": false
+  },
+  {
+    "id": "data-burst-debezium-avro",
+    "full_name": "data-burst/debezium_avro_integration",
+    "description": "Reference integration of Debezium with Avro schemas — Kafka Connect setup, examples.",
+    "language": "Shell",
+    "stargazers_count": 9,
+    "forks_count": 0,
+    "html_url": "https://github.com/data-burst/debezium_avro_integration",
+    "featured": false
+  },
+  {
+    "id": "mg-clickhouse",
+    "full_name": "mostafaghadimi/clickhouse",
+    "description": "Easily set up a production-ready standalone ClickHouse and monitor it — Ansible-driven.",
+    "language": "Shell",
+    "stargazers_count": 10,
+    "forks_count": 0,
+    "html_url": "https://github.com/mostafaghadimi/clickhouse",
+    "featured": true
+  },
+  {
+    "id": "mg-pinot-ansible",
+    "full_name": "mostafaghadimi/pinot-dockerized-ansible",
+    "description": "Install, scale, and reset an Apache Pinot cluster with monitoring servers using Ansible.",
+    "language": "Jinja",
+    "stargazers_count": 6,
+    "forks_count": 0,
+    "html_url": "https://github.com/mostafaghadimi/pinot-dockerized-ansible",
+    "featured": false
+  },
+  {
+    "id": "mg-kafka-kraft",
+    "full_name": "mostafaghadimi/Kafka-KRaft-Ansible",
+    "description": "Set up a new Kafka KRaft cluster and join new nodes using Ansible — no ZooKeeper.",
+    "language": "Jinja",
+    "stargazers_count": 4,
+    "forks_count": 0,
+    "html_url": "https://github.com/mostafaghadimi/Kafka-KRaft-Ansible",
+    "featured": false
+  },
+  {
+    "id": "mg-blog",
+    "full_name": "mostafaghadimi/blog",
+    "description": "Personal engineering blog — data platforms, AI agents, and infra notes.",
+    "language": null,
+    "stargazers_count": 5,
+    "forks_count": 0,
+    "html_url": "https://github.com/mostafaghadimi/blog",
+    "featured": false
+  }
+]

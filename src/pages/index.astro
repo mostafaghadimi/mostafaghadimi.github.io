@@ -1,0 +1,30 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import PipelineRail from "~/components/PipelineRail.astro";
+import StreamingBackground from "~/components/StreamingBackground.astro";
+import Hero from "~/components/Hero.astro";
+import About from "~/components/About.astro";
+import ExperienceTimeline from "~/components/ExperienceTimeline.astro";
+import FeaturedCaseStudies from "~/components/FeaturedCaseStudies.astro";
+import OpenSourceGrid from "~/components/OpenSourceGrid.astro";
+import Skills from "~/components/Skills.astro";
+import EducationAwards from "~/components/EducationAwards.astro";
+import Contact from "~/components/Contact.astro";
+import Footer from "~/components/Footer.astro";
+---
+
+<BaseLayout>
+  <StreamingBackground />
+  <PipelineRail />
+  <main id="main" class="lg:pl-[14rem] pt-12 lg:pt-0">
+    <Hero />
+    <About />
+    <ExperienceTimeline />
+    <FeaturedCaseStudies />
+    <OpenSourceGrid />
+    <Skills />
+    <EducationAwards />
+    <Contact />
+    <Footer />
+  </main>
+</BaseLayout>
