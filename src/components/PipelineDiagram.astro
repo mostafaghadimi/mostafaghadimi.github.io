@@ -65,7 +65,13 @@ const tracks: Track[] = [
 
 const VB_W = 1000;
 const VB_H = 360;
-const STATION_XS = [140, 380, 620, 860];
+// Station x positions are kept symmetric around the centre (midpoint of
+// stations 1+2 = 500, where the "you" bridge sits). Compared to the previous
+// [140, 380, 620, 860] layout, station 0 was pushed right to 200 so the row
+// caption ("stream → store → serve" / "listen → reason → reply") on the
+// far-left has a clean gap before the first station's halo and the last
+// word doesn't get eaten by the green/magenta glow.
+const STATION_XS = [200, 400, 600, 800];
 
 // Build a smooth path through 4 stations using cubic beziers between each pair
 function trackPath(centerY: number, yWave: number[]): string {
