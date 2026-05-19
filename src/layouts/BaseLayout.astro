@@ -69,7 +69,12 @@ const ogImageURL = new URL(ogImage, Astro.site ?? site.url).toString();
     <link rel="alternate icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- "default" lets iOS give the status bar its own band (using our
+         theme-color meta as the background) and auto-styles the icons for
+         contrast in light/dark mode. The previous `black-translucent` value
+         forced white icons and let page content slide UNDER the status bar,
+         which clobbered the top of the navbar in installed PWAs. -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Mostafa G." />
     <meta name="format-detection" content="telephone=no" />
 

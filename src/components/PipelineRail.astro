@@ -10,12 +10,18 @@ import { stages } from "~/data/stages";
 import { site } from "~/data/site";
 ---
 
-<!-- Mobile / small-screen top header -->
+<!-- Mobile / small-screen top header.
+     The outer <header> stretches to the physical top of the viewport so its
+     blurred background paints behind the iOS status bar; the inner content
+     row is pushed down by `env(safe-area-inset-top)` so the logo + links
+     never sit under the status bar icons in an installed PWA. The
+     horizontal env() insets handle the notch / Dynamic Island area in
+     landscape orientation. -->
 <header
   id="rail-top"
-  class="lg:hidden fixed inset-x-0 top-0 z-40 border-b border-[var(--rule)] bg-[color-mix(in_oklab,var(--bg)_88%,transparent)] backdrop-blur"
+  class="lg:hidden fixed inset-x-0 top-0 z-40 border-b border-[var(--rule)] bg-[color-mix(in_oklab,var(--bg)_88%,transparent)] backdrop-blur pt-[env(safe-area-inset-top)]"
 >
-  <div class="flex items-center justify-between px-4 h-12 max-w-screen-md mx-auto">
+  <div class="flex items-center justify-between px-4 h-12 max-w-screen-md mx-auto pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]">
     <a href="#intro" class="inline-flex items-center gap-2 group">
       <span
         class="font-mono text-xs text-[var(--accent)] tracking-widest"
@@ -67,7 +73,7 @@ import { site } from "~/data/site";
   </div>
   <div
     id="rail-menu-panel"
-    class="hidden border-t border-[var(--rule)] px-4 py-3 max-w-screen-md mx-auto"
+    class="hidden border-t border-[var(--rule)] px-4 py-3 max-w-screen-md mx-auto pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]"
   >
     <ol class="grid grid-cols-2 gap-x-3 gap-y-1.5">
       {
