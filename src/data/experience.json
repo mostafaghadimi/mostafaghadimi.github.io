@@ -6,8 +6,8 @@
     "location": "Remote · San Francisco, CA",
     "period": {
       "start": "2025-11",
-      "end": null,
-      "label": "Nov 2025 — Present"
+      "end": "2026-05",
+      "label": "Nov 2025 — May 2026"
     },
     "context": "AI agents for property management — tenant comms, maintenance triage, vendor coordination.",
     "bullets": [
