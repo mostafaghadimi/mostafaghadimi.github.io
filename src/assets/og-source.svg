@@ -1,88 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!--
+    1200x630 Open Graph card. Same editorial cream + ink + signal-orange
+    language as the site, with a compact pipeline strip echoing the hero
+    diagram (events -> Kafka -> ClickHouse -> Analytics) so the preview
+    matches the live page. All non-ASCII glyphs are written as XML entities
+    so the file stays a pure 7-bit source - librsvg/sharp render them as
+    the intended Unicode characters in the final PNG.
+  -->
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0a0a0f"/>
-      <stop offset="100%" stop-color="#131521"/>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#faf6f0"/>
+      <stop offset="100%" stop-color="#f0e8db"/>
     </linearGradient>
-    <radialGradient id="halo" cx="20%" cy="0%" r="60%">
-      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.45"/>
-      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="grid" x="0" y="0" width="56" height="56" patternUnits="userSpaceOnUse">
-      <path d="M 56 0 L 0 0 0 56" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+
+    <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#b8aea3" opacity="0.18"/>
     </pattern>
-    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#9b75ff"/>
-      <stop offset="100%" stop-color="#7c3aed"/>
+
+    <linearGradient id="seg1" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#0d9488" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="seg2" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#b45309" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="seg3" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="seg4" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#6d28d9" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#15803d" stop-opacity="0.9"/>
     </linearGradient>
   </defs>
 
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
-  <rect width="1200" height="630" fill="url(#halo)"/>
+  <rect width="1200" height="630" fill="url(#paper)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
 
-  <!-- Monogram badge -->
-  <g transform="translate(76,76)">
-    <rect width="92" height="92" rx="20" fill="#131521" stroke="#7c3aed" stroke-opacity="0.5" stroke-width="2"/>
-    <text x="46" y="50" text-anchor="middle" dominant-baseline="middle"
-          font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="42"
-          fill="#ffffff" letter-spacing="-1">MG</text>
+  <!-- Status pill (top-left) -->
+  <g transform="translate(76,72)">
+    <rect width="320" height="40" rx="20" fill="#faf6f0" stroke="#d8cfc3" stroke-width="1.5"/>
+    <circle cx="24" cy="20" r="6" fill="#cc5500"/>
+    <circle cx="24" cy="20" r="12" fill="#cc5500" opacity="0.22"/>
+    <text x="44" y="20" dominant-baseline="middle"
+          font-family="'JetBrains Mono', ui-monospace, monospace"
+          font-size="14" font-weight="500" fill="#5c544c" letter-spacing="0.02em">
+      open to senior remote roles
+    </text>
   </g>
 
-  <!-- Status pill -->
-  <g transform="translate(196,98)">
-    <rect width="280" height="36" rx="18" fill="#131521" stroke="#2f3340" stroke-width="1"/>
-    <circle cx="20" cy="18" r="5" fill="#34d399"/>
-    <text x="36" y="18" dominant-baseline="middle"
-          font-family="Inter, system-ui, sans-serif" font-weight="500" font-size="14"
-          fill="#9ea2ac">Open to senior remote roles</text>
+  <!-- Monogram badge (top-right) - mirrors the favicon -->
+  <g transform="translate(1024,52)">
+    <rect width="100" height="100" rx="22" fill="#faf6f0" stroke="#d8cfc3" stroke-width="2"/>
+    <circle cx="80" cy="22" r="6" fill="#cc5500"/>
+    <text x="50" y="60" text-anchor="middle" dominant-baseline="middle"
+          font-family="Inter, system-ui, sans-serif"
+          font-weight="800" font-size="50" letter-spacing="-3">
+      <tspan fill="#1a1715">M</tspan><tspan fill="#cc5500">G</tspan>
+    </text>
   </g>
 
-  <!-- Headline -->
-  <text x="76" y="280" font-family="Inter, system-ui, sans-serif" font-weight="700"
-        font-size="76" fill="#ffffff" letter-spacing="-2">
-    <tspan>Mostafa Ghadimi</tspan>
-  </text>
-  <text x="76" y="360" font-family="Inter, system-ui, sans-serif" font-weight="600"
-        font-size="44" fill="url(#accent)" letter-spacing="-1">
-    <tspan>Senior Data &amp; AI Engineer</tspan>
-  </text>
-  <text x="76" y="408" font-family="Inter, system-ui, sans-serif" font-weight="400"
-        font-size="22" fill="#9ea2ac" letter-spacing="-0.2">
-    <tspan>Tech Lead &#183; Platform &amp; AI &#183; 6+ years</tspan>
+  <text x="76" y="244" font-family="Inter, system-ui, sans-serif"
+        font-weight="800" font-size="92" fill="#1a1715" letter-spacing="-2.5">
+    Mostafa Ghadimi
   </text>
 
-  <!-- Tech chips row -->
-  <g transform="translate(76,488)" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="16" fill="#c8cad0">
+  <text x="76" y="312" font-family="Inter, system-ui, sans-serif"
+        font-weight="500" font-size="36" fill="#5c544c" letter-spacing="-0.5">
+    Senior Data &amp; AI Engineer&#160;&#160;&#183;&#160;&#160;6+ years
+  </text>
+
+  <text x="76" y="386" font-family="Inter, system-ui, sans-serif"
+        font-weight="400" font-size="28" fill="#3a342f" letter-spacing="-0.3">
+    I build <tspan fill="#cc5500" font-weight="600" font-style="italic">pipelines</tspan> and the <tspan font-weight="600" font-style="italic">agents</tspan> they feed.
+  </text>
+
+  <!-- Pipeline strip - flat compact version of the hero diagram -->
+  <g transform="translate(76,498)">
+    <text x="0" y="-20"
+          font-family="'JetBrains Mono', monospace"
+          font-size="11" font-weight="600" fill="#3a342f" letter-spacing="3">DATA</text>
+    <text x="0" y="-4"
+          font-family="'JetBrains Mono', monospace"
+          font-size="10" fill="#8b8278">stream &#8594; store &#8594; serve</text>
+
+    <line x1="186" y1="14" x2="394" y2="14" stroke="url(#seg1)" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="446" y1="14" x2="654" y2="14" stroke="url(#seg2)" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="706" y1="14" x2="914" y2="14" stroke="url(#seg3)" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="966" y1="14" x2="1052" y2="14" stroke="url(#seg4)" stroke-width="2.5" stroke-linecap="round"/>
+
     <g>
-      <rect width="116" height="36" rx="18" fill="#131521" stroke="#2f3340"/>
-      <text x="58" y="22" text-anchor="middle">ClickHouse</text>
+      <circle cx="160" cy="14" r="22" fill="#cc5500" opacity="0.10"/>
+      <circle cx="160" cy="14" r="13" fill="#faf6f0" stroke="#0d9488" stroke-width="2.5"/>
+      <text x="160" y="58" text-anchor="middle"
+            font-family="Inter, system-ui, sans-serif"
+            font-size="14" font-weight="600" fill="#1a1715">events</text>
     </g>
-    <g transform="translate(128,0)">
-      <rect width="88" height="36" rx="18" fill="#131521" stroke="#2f3340"/>
-      <text x="44" y="22" text-anchor="middle">Kafka</text>
+    <g>
+      <circle cx="420" cy="14" r="22" fill="#cc5500" opacity="0.10"/>
+      <circle cx="420" cy="14" r="13" fill="#faf6f0" stroke="#b45309" stroke-width="2.5"/>
+      <text x="420" y="58" text-anchor="middle"
+            font-family="Inter, system-ui, sans-serif"
+            font-size="14" font-weight="600" fill="#1a1715">Kafka</text>
     </g>
-    <g transform="translate(228,0)">
-      <rect width="80" height="36" rx="18" fill="#131521" stroke="#2f3340"/>
-      <text x="40" y="22" text-anchor="middle">Pinot</text>
+    <g>
+      <circle cx="680" cy="14" r="22" fill="#cc5500" opacity="0.10"/>
+      <circle cx="680" cy="14" r="13" fill="#faf6f0" stroke="#1d4ed8" stroke-width="2.5"/>
+      <text x="680" y="58" text-anchor="middle"
+            font-family="Inter, system-ui, sans-serif"
+            font-size="14" font-weight="600" fill="#1a1715">ClickHouse</text>
     </g>
-    <g transform="translate(320,0)">
-      <rect width="64" height="36" rx="18" fill="#131521" stroke="#2f3340"/>
-      <text x="32" y="22" text-anchor="middle">dbt</text>
+    <g>
+      <circle cx="940" cy="14" r="22" fill="#cc5500" opacity="0.10"/>
+      <circle cx="940" cy="14" r="13" fill="#faf6f0" stroke="#15803d" stroke-width="2.5"/>
+      <text x="940" y="58" text-anchor="middle"
+            font-family="Inter, system-ui, sans-serif"
+            font-size="14" font-weight="600" fill="#1a1715">Analytics</text>
     </g>
-    <g transform="translate(396,0)">
-      <rect width="124" height="36" rx="18" fill="#131521" stroke="#2f3340"/>
-      <text x="62" y="22" text-anchor="middle">LangGraph</text>
-    </g>
-    <g transform="translate(532,0)">
-      <rect width="132" height="36" rx="18" fill="#131521" stroke="#2f3340"/>
-      <text x="66" y="22" text-anchor="middle">Kubernetes</text>
-    </g>
+
+    <!-- A few flow dots - the "live" signal, frozen mid-flight -->
+    <circle cx="290" cy="14" r="4" fill="#cc5500"/>
+    <circle cx="550" cy="14" r="4" fill="#cc5500"/>
+    <circle cx="810" cy="14" r="4" fill="#cc5500"/>
   </g>
 
-  <!-- Footer URL -->
-  <text x="76" y="582" font-family="'JetBrains Mono', ui-monospace, monospace"
-        font-size="18" fill="#6d7280" letter-spacing="0.05em">
+  <text x="76" y="592" font-family="'JetBrains Mono', monospace"
+        font-size="18" fill="#8b8278" letter-spacing="0.05em">
     mostafaghadimi.github.io
+  </text>
+
+  <text x="1124" y="592" text-anchor="end" font-family="'JetBrains Mono', monospace"
+        font-size="14" fill="#8b8278" letter-spacing="0.02em">
+    Istanbul&#160;&#160;&#183;&#160;&#160;remote, global
   </text>
 </svg>

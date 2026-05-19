@@ -52,13 +52,15 @@ async function generateIcon(svgBuffer, opts) {
     .toBuffer();
 
   if (opts.flatten) {
-    // Maskable: solid violet background so the icon survives Android masks.
+    // Maskable: solid warm-cream background so the icon stays on-brand when
+    // Android's adaptive-icon mask crops the outer 10% — the safe-zone
+    // monogram never lands on a foreign colour.
     return sharp({
       create: {
         width: size,
         height: size,
         channels: 4,
-        background: { r: 124, g: 58, b: 237, alpha: 1 }, // #7c3aed
+        background: { r: 247, g: 243, b: 237, alpha: 1 }, // #f7f3ed — paper bg
       },
     })
       .composite([{ input: innerPng, top: inset, left: inset }])
@@ -71,7 +73,7 @@ async function generateIcon(svgBuffer, opts) {
       width: size,
       height: size,
       channels: 4,
-      background: { r: 10, g: 10, b: 15, alpha: 1 }, // #0a0a0f
+      background: { r: 247, g: 243, b: 237, alpha: 1 }, // #f7f3ed — paper bg
     },
   })
     .composite([{ input: innerPng, top: inset, left: inset }])
