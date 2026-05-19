@@ -14,6 +14,12 @@ export default defineConfig({
     inlineStylesheets: "auto",
   },
   vite: {
+    // Astro 6 bundles its own pinned Vite under `astro/node_modules/vite`,
+    // while `@tailwindcss/vite` returns plugins typed against the
+    // top-level Vite. The two `Plugin<T>` types are structurally identical
+    // but nominally distinct, so `astro check` flags an assignment error
+    // even though everything works fine at runtime. Suppress the noise.
+    // @ts-expect-error -- nominal Vite Plugin type mismatch, harmless
     plugins: [tailwindcss()],
   },
   integrations: [
@@ -29,7 +35,7 @@ export default defineConfig({
       ],
       manifest: {
         name: "Mostafa Ghadimi — Senior Data & AI Engineer",
-        short_name: "Mostafa Ghadimi",
+        short_name: "Mostafa G.",
         description:
           "Senior Data & AI Engineer (6+ yrs). Building large-scale data platforms and production LLM/agentic systems.",
         theme_color: "#cc5500",
