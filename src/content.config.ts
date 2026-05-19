@@ -1,5 +1,10 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
 import { file } from "astro/loaders";
+// Astro 6 moved the re-exported Zod surface out of `astro:content` into the
+// dedicated `astro:schema` virtual module. Same `z` underneath (it's still
+// `astro/zod`), but the import now matches the v6 docs and clears the
+// "z is deprecated" warnings from `astro check`.
+import { z } from "astro:schema";
 
 const experience = defineCollection({
   loader: file("src/data/experience.json"),
