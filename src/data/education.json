@@ -1,0 +1,17 @@
+[
+  {
+    "id": "msc-tehran",
+    "degree": "MSc in Algorithms and Computations",
+    "school": "University of Tehran",
+    "detail": "Relevant coursework: Distributed Systems, Advanced Algorithms, Machine Learning.",
+    "location": "Tehran, Iran",
+    "period": "2022 — 2024"
+  },
+  {
+    "id": "bsc-sharif",
+    "degree": "BSc in Computer Engineering",
+    "school": "Sharif University of Technology",
+    "location": "Tehran, Iran",
+    "period": "2016 — 2020"
+  }
+]

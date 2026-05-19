@@ -1,0 +1,137 @@
+[
+  {
+    "id": "vendoroo",
+    "company": "Vendoroo",
+    "role": "Senior AI Engineer",
+    "location": "Remote · San Francisco, CA",
+    "period": {
+      "start": "2025-11",
+      "end": null,
+      "label": "Nov 2025 — Present"
+    },
+    "context": "AI agents for property management — tenant comms, maintenance triage, vendor coordination.",
+    "bullets": [
+      "Ship the tenant-facing maintenance-triage agent serving millions of messages across thousands of properties and 1,000+ property managers, with monthly agent volume scaling ~3× in 6 months (LangChain, LangGraph, FastAPI).",
+      "Modularised the agent graph — conversation policy split from supporting middleware (input cleaning, context batching, reply formatting) — so each layer is independently testable and hot-swappable.",
+      "Added a vision pre-step via before_agent middleware that converts tenant-submitted photos (100K+ processed) into structured context; multimodal handoff plugged in without changes to downstream nodes.",
+      "Restored LangSmith tracing across the LLM fallback path (previously a black box), authored the next-milestone target architecture and decision log, and rebuilt new-engineer onboarding so day-one clone-and-run works across all repos."
+    ],
+    "tags": ["LangChain", "LangGraph", "LangSmith", "FastAPI", "OpenAI", "Multimodal", "Python"],
+    "href": "https://vendoroo.ai"
+  },
+  {
+    "id": "snapppay",
+    "company": "SnappPay",
+    "role": "Data Engineering Tech Specialist",
+    "location": "Remote · Tehran",
+    "period": {
+      "start": "2024-06",
+      "end": "2025-10",
+      "label": "Jun 2024 — Oct 2025"
+    },
+    "context": "Iran's leading BNPL fintech, part of the Snapp Group super-app.",
+    "bullets": [
+      "Promoted from Senior Data Engineer to Tech Specialist in 5 months; owned hiring for the data team (20+ technical interviews), authored the interview rubric and calibration process still in use, ran weekly 1:1s, and wrote the onboarding playbook.",
+      "Cut cluster provisioning from a multi-day manual ritual to one command via an Ansible toolkit — ClickHouse cluster, monitoring, and managed PostgreSQL with a zero-downtime upgrade path.",
+      "Built the team's CI/CD framework as reusable GitLab pipeline components — every new repo ships DAG delivery, Spark jobs, semantic releases, and proxy-aware Docker builds out of the box.",
+      "Delivered the team's dbt project (staging + marts: transactions, orders, carts, credit, user dim) on Airflow + ClickHouse, turning ad-hoc SQL into reviewable, testable analytics code.",
+      "Built a data trust layer — generic DQ framework (completeness / freshness / uniqueness / consistency, chunked + retry-aware), schema-drift alerting to MS Teams via Kafka, daily credit-warehouse backfill — plus the streaming and GitOps backbone (Strimzi Kafka on K8s, ArgoCD)."
+    ],
+    "tags": ["ClickHouse", "dbt", "Airflow", "Strimzi", "Kafka", "ArgoCD", "Ansible", "GitLab CI", "Leadership"]
+  },
+  {
+    "id": "iritco",
+    "company": "IRITCO",
+    "role": "Senior Data Consultant",
+    "location": "Remote",
+    "period": {
+      "start": "2024-05",
+      "end": "2025-04",
+      "label": "May 2024 — Apr 2025"
+    },
+    "context": "Iranian IT consultancy — data platforms and ICT for enterprise and public-sector clients.",
+    "bullets": [
+      "Led 5 engineers through the greenfield build of a national aid-distribution analytics platform on ClickHouse.",
+      "Ran 4 architectural decision sessions (R&D, prototype, presentation, decision log) covering analytics-DB choice, ETL vs. ELT, and on-prem vs. cloud — evidence-backed sign-off rather than instinct.",
+      "Retired a legacy Oracle reporting stack with a Python ingestion pipeline (SQLAlchemy, pandas) that mirrored operational tables into the new warehouse on a known schedule.",
+      "Established the engineering practice the team kept — meta-repo orchestration, Git conventions, code-style guide, mandatory code review, on-call runbook."
+    ],
+    "tags": ["ClickHouse", "Oracle", "Python", "SQLAlchemy", "Architecture", "Tech Lead"]
+  },
+  {
+    "id": "mofid",
+    "company": "Mofid Securities",
+    "role": "Data Architect & Senior Data Engineer",
+    "location": "Tehran, Iran",
+    "period": {
+      "start": "2023-03",
+      "end": "2024-05",
+      "label": "Mar 2023 — May 2024"
+    },
+    "context": "Iran's #1 stock brokerage and securities firm — top retail-trading platform.",
+    "bullets": [
+      "Designed and built the brokerage's first analytics data platform from a blank page — owned architecture, tool selection, and core framework code across analytics DB, orchestration, GitOps, secrets, BI, and monitoring.",
+      "Automated the migration from a legacy SQL Server warehouse to ClickHouse with a custom change-data-capture framework that generated destination tables on the fly and handled decimal precision, binary columns, Jalali dates, and late-arriving updates with no manual intervention.",
+      "Delivered a no-code data-quality framework (table-level YAML config, separate query paths for SQL Server and ClickHouse) so onboarding a new table to monitoring is a config change.",
+      "Bootstrapped the Kubernetes platform bare-metal to production: RKE clusters, ArgoCD delivery, ingress for Airflow / Grafana / Longhorn, systemd-managed Kafka cluster (KRaft) feeding the CDC pipeline; packaged Metabase as a reusable Helm chart.",
+      "Authored the engineering methodology the team adopted (2-week sprints, 20-min standups, grooming / planning / retro, OKR-driven backlog) and wrote it up as a living team doc."
+    ],
+    "tags": ["ClickHouse", "Kafka KRaft", "Kubernetes", "RKE", "ArgoCD", "Airflow", "Metabase", "Helm", "CDC"]
+  },
+  {
+    "id": "offerland",
+    "company": "Offerland",
+    "role": "Cloud Engineer",
+    "location": "Remote · Vancouver, Canada",
+    "period": {
+      "start": "2023-04",
+      "end": "2024-11",
+      "label": "Apr 2023 — Nov 2024"
+    },
+    "context": "Vancouver-based real-estate marketplace.",
+    "bullets": [
+      "Cut AWS spend by ~40% with no service impact via right-sizing, Reserved Instance commitments, S3 lifecycle policies, and a sweep of orphaned compute and log retention.",
+      "Migrated production from a single EC2 + Docker-Compose host to AWS ECS behind an Application Load Balancer with an ECR image-promotion pipeline — removed single-host outage as a failure mode.",
+      "Delivered the company's observability stack (Prometheus, Alertmanager, Grafana dashboards, CloudWatch metrics) with on-call routing so issues surfaced before customers noticed.",
+      "Owned the IaC repos provisioning the platform (Terraform / Ansible modules, GitLab-CI templates, AWS auth and backup pipelines) and unified secret management to a single source of truth."
+    ],
+    "tags": ["AWS", "ECS", "Terraform", "Ansible", "Prometheus", "Grafana", "GitLab CI", "FinOps"]
+  },
+  {
+    "id": "digikala",
+    "company": "Digikala",
+    "role": "Data Engineer → Senior Data Engineer",
+    "location": "Tehran, Iran",
+    "period": {
+      "start": "2021-01",
+      "end": "2023-04",
+      "label": "Jan 2021 — Apr 2023"
+    },
+    "context": "Iran's largest e-commerce platform — the 'Amazon of Iran'.",
+    "bullets": [
+      "Co-built Backbone, the internal platform that gave data scientists a one-button path from notebook to production — 15+ DS services (search, recommendation, query processing, trending, spell correction, synonym, Snowplow) on a shared Spark + Airflow + Pinot stack, no Kubernetes YAML required.",
+      "Delivered up to 10× query speed-up on billions of rows of clickstream / order OLAP workloads by introducing Apache Pinot with hand-tuned star-tree indexes and rewriting the heaviest dashboards.",
+      "Tuned production Kafka brokers (compression, page-cache, ACLs, broker config), reducing consumer lag and disk pressure on the busiest topics.",
+      "Brought GitOps (ArgoCD + Kustomize + Kaniko/Dagger CI) into the data org, replacing manual kubectl apply with reviewable PRs; provisioned production K8s clusters via RKE and Kubespray."
+    ],
+    "tags": ["Apache Pinot", "Apache Spark", "Airflow", "Kafka", "Kubernetes", "ArgoCD", "Snowplow"]
+  },
+  {
+    "id": "earlier",
+    "company": "Earlier Experience",
+    "role": "Software / Data / Cloud Engineering",
+    "location": "Vancouver · Tehran",
+    "period": {
+      "start": "2019-05",
+      "end": "2022-05",
+      "label": "May 2019 — May 2022"
+    },
+    "context": "Three early roles — startup data infra, algorithmic trading, full-stack analytics.",
+    "bullets": [
+      "Lions Digital Solutions (Software Engineer, Vancouver, 2021–2022) — Built a sales-analytics web app for Amazon sellers with marketing/CRM data ingestion (Amazon, Google Ads/Analytics, Ontraport, Close, Oncehub, Thinkific, HelloSign) and the CI/CD that ships it.",
+      "Hoosh Pardaz (Algorithmic Trader & Data Scientist, Tehran, 2020) — Researched Crypto ETFs and built backtested trading strategies for the Canadian market under Dr. Soleymani Baghshah and Dr. Behrouzi.",
+      "Wize Analytics (Infrastructure & Data Engineer, Tehran, 2019) — Delivered the data infra (message bus, search index, document store, developer toolchain) for a Sharif-University NLP startup advised by Dr. Rabiee and Dr. Ramezani."
+    ],
+    "tags": ["Python", "Web", "ETL", "Backtesting", "Search", "Document Store"]
+  }
+]

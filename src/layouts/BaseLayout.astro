@@ -1,0 +1,148 @@
+---
+import "~/styles/global.css";
+import { pwaInfo } from "virtual:pwa-info";
+import { site } from "~/data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  ogImage = "/og-image.png",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? site.url).toString();
+const ogImageURL = new URL(ogImage, Astro.site ?? site.url).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Theme bootstrap: runs before paint, no FOUC. Light is the default
+         (editorial / paper feel); user choice + OS preference can flip it. -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var theme = stored || (prefersDark ? "dark" : "light");
+          if (theme === "dark") document.documentElement.classList.add("dark");
+        } catch (_) {
+          /* localStorage blocked: fall back to light */
+        }
+      })();
+    </script>
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="author" content={site.author.name} />
+    <meta name="keywords" content={site.keywords.join(", ")} />
+    <meta name="theme-color" content="#14110e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f3ed" media="(prefers-color-scheme: light)" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content={site.author.name} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Favicons / Apple -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Mostafa G." />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Fonts: Inter (UI) + Fraunces (display serif) + JetBrains Mono (code/labels).
+         Loaded via Google Fonts with display=swap; small enough to be safe to
+         render-block briefly so the editorial serif lands on first paint. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={site.author.name} href="/rss.xml" />
+
+    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+
+    <!-- Structured data: Person -->
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: site.author.name,
+        url: site.url,
+        image: `${site.url}/icons/icon-512.png`,
+        jobTitle: site.author.role,
+        worksFor: { "@type": "Organization", name: site.author.currentCompany },
+        sameAs: [
+          `https://github.com/${site.author.github}`,
+          `https://www.linkedin.com/in/${site.author.linkedin}/`,
+          site.author.telegram ? `https://t.me/${site.author.telegram}` : null,
+          site.author.stackoverflow ? `https://stackoverflow.com/users/${site.author.stackoverflow}` : null,
+        ].filter(Boolean),
+        email: `mailto:${site.author.email}`,
+      })}
+    />
+  </head>
+  <body class="antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--bg-elevated)] focus:text-[var(--fg)] focus:border focus:border-[var(--rule-strong)]"
+    >
+      Skip to content
+    </a>
+
+    <slot />
+
+    <!-- PWA service-worker registration -->
+    <script is:inline src="/registerSW.js"></script>
+
+    <!-- Reveal-on-scroll observer (tiny, no deps) -->
+    <script is:inline>
+      (function () {
+        if (!("IntersectionObserver" in window)) {
+          document.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("is-visible"));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.01 },
+        );
+        document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+      })();
+    </script>
+  </body>
+</html>

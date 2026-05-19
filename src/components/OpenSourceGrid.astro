@@ -1,0 +1,181 @@
+---
+import Container from "./Container.astro";
+import SectionHeading from "./SectionHeading.astro";
+import { getRepoCards, languageColor, formatStars } from "~/utils/github";
+
+const repos = await getRepoCards();
+const totalStars = repos.reduce((acc, r) => acc + r.stargazers_count, 0);
+const anyLive = repos.some((r) => r.isLive);
+
+// Group by owner so we can render two "folders" like a file browser
+type Owner = "data-burst" | "mostafaghadimi";
+const byOwner: Record<Owner, typeof repos> = {
+  "data-burst": [],
+  mostafaghadimi: [],
+};
+for (const r of repos) {
+  const owner = r.full_name.split("/")[0] as Owner;
+  byOwner[owner].push(r);
+}
+for (const owner of Object.keys(byOwner) as Owner[]) {
+  byOwner[owner].sort((a, b) => {
+    if (a.featured !== b.featured) return a.featured ? -1 : 1;
+    return b.stargazers_count - a.stargazers_count;
+  });
+}
+
+const folders: { owner: Owner; label: string; orgHref: string }[] = [
+  {
+    owner: "data-burst",
+    label: "data-burst/",
+    orgHref: "https://github.com/data-burst",
+  },
+  {
+    owner: "mostafaghadimi",
+    label: "mostafaghadimi/",
+    orgHref: "https://github.com/mostafaghadimi",
+  },
+];
+---
+
+<section id="open-source" class="relative py-20 sm:py-28 scroll-mt-12">
+  <Container wide>
+    <SectionHeading
+      stageId="open-source"
+      title="Open source."
+      description="Infra toolkits, Airflow utilities, learning resources."
+    />
+
+    <!-- File-browser header -->
+    <div
+      class="flex flex-wrap items-center gap-x-6 gap-y-2 px-4 py-2.5 border-t border-b border-[var(--rule)] bg-[var(--bg-elevated)] font-mono text-[11px] text-[var(--fg-muted)]"
+      data-reveal
+    >
+      <span>
+        <span class="text-[var(--fg-subtle)]">$</span> tree --filter "open-source"
+      </span>
+      <span class="text-[var(--fg-subtle)]">
+        <span class="text-[var(--fg)]">{repos.length}</span> repos
+      </span>
+      <span class="text-[var(--fg-subtle)]">
+        <span class="text-[var(--fg)]">{totalStars.toLocaleString()}</span> stars total
+      </span>
+      {
+        anyLive && (
+          <span class="ml-auto inline-flex items-center gap-1.5 text-[var(--accent)]">
+            <span class="dot-pulse" aria-hidden="true" />
+            github.api · live
+          </span>
+        )
+      }
+    </div>
+
+    <div class="border border-t-0 border-[var(--rule)] bg-[var(--bg-elevated)] py-4 sm:py-6" data-reveal>
+      {
+        folders.map((folder) => (
+          <details class="group" open>
+            <summary class="cursor-pointer list-none flex items-center gap-2 px-5 py-2 hover:bg-[var(--bg-soft)] font-mono text-sm select-none">
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 12 12"
+                class="text-[var(--fg-subtle)] transition-transform group-open:rotate-90"
+                aria-hidden="true"
+              >
+                <path d="M3 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" aria-hidden="true">
+                <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              </svg>
+              <a
+                href={folder.orgHref}
+                target="_blank"
+                rel="noreferrer noopener"
+                class="text-[var(--fg)] hover:text-[var(--accent)]"
+                data-stop-toggle
+              >
+                {folder.label}
+              </a>
+              <span class="text-[var(--fg-subtle)]">
+                ({byOwner[folder.owner].length})
+              </span>
+            </summary>
+            <ul class="pl-6 pr-2 sm:pl-10 sm:pr-4 pb-3" role="list">
+              {byOwner[folder.owner].map((r) => {
+                const dot = r.language ? languageColor[r.language] ?? "#94a3b8" : "#94a3b8";
+                const name = r.full_name.split("/")[1];
+                return (
+                  <li>
+                    <a
+                      href={r.html_url}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      class="group/repo grid items-center gap-x-3 sm:gap-x-5 py-2 px-2 sm:px-3 -mx-2 sm:-mx-3 hover:bg-[var(--bg-soft)] transition-colors"
+                      style="grid-template-columns: auto minmax(0,1fr) auto;"
+                    >
+                      {/* file icon + name */}
+                      <span class="inline-flex items-center gap-2 font-mono text-sm text-[var(--fg-muted)] group-hover/repo:text-[var(--fg)] truncate">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                          <polyline points="14 2 14 8 20 8" />
+                        </svg>
+                        <span class="text-[var(--fg)] group-hover/repo:text-[var(--accent)] truncate">
+                          {name}
+                        </span>
+                        {r.featured && (
+                          <span
+                            class="font-mono text-[9px] uppercase tracking-wider px-1 py-0.5 border border-[color-mix(in_srgb,var(--accent)_40%,transparent)] text-[var(--accent)] bg-[var(--accent-soft)]"
+                            title="Hand-picked highlight"
+                          >
+                            pick
+                          </span>
+                        )}
+                      </span>
+
+                      {/* description */}
+                      <span class="hidden sm:block text-[13px] text-[var(--fg-muted)] truncate">
+                        {r.description}
+                      </span>
+
+                      {/* meta: lang + stars */}
+                      <span class="inline-flex items-center gap-3 font-mono text-[11px] text-[var(--fg-subtle)] whitespace-nowrap">
+                        {r.language && (
+                          <span class="inline-flex items-center gap-1">
+                            <span
+                              aria-hidden="true"
+                              class="h-2 w-2 rounded-full"
+                              style={`background:${dot}`}
+                            />
+                            {r.language}
+                          </span>
+                        )}
+                        <span class="inline-flex items-center gap-1">
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                          </svg>
+                          {formatStars(r.stargazers_count)}
+                        </span>
+                      </span>
+
+                      {/* description shown on mobile under the row */}
+                      <span class="sm:hidden col-span-3 mt-0.5 text-xs text-[var(--fg-muted)] truncate pl-5">
+                        {r.description}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </details>
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<script is:inline>
+  // Prevent the org-name link inside <summary> from also toggling the details
+  document.querySelectorAll("[data-stop-toggle]").forEach((el) => {
+    el.addEventListener("click", (e) => e.stopPropagation());
+  });
+</script>
