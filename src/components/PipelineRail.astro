@@ -26,7 +26,13 @@ import { site } from "~/data/site";
       </span>
     </a>
     <div class="flex items-center gap-1.5">
-      <a href="/resume.pdf" class="text-xs font-mono text-[var(--fg-muted)] hover:text-[var(--accent)] px-2 py-1" download>
+      <a
+        href="/resume.pdf"
+        target="_blank"
+        rel="noopener"
+        class="text-xs font-mono text-[var(--fg-muted)] hover:text-[var(--accent)] px-2 py-1"
+        download
+      >
         resume.pdf
       </a>
       <button
@@ -161,6 +167,8 @@ import { site } from "~/data/site";
   <div class="px-5 pb-6 pt-3 border-t border-[var(--rule)]">
     <a
       href="/resume.pdf"
+      target="_blank"
+      rel="noopener"
       download
       class="flex items-center justify-between w-full px-3 py-2 border border-[var(--rule-strong)] text-sm font-medium text-[var(--fg)] hover:text-[var(--bg)] hover:bg-[var(--accent)] hover:border-[var(--accent)] transition-colors"
     >
