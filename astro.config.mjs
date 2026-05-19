@@ -32,8 +32,8 @@ export default defineConfig({
         short_name: "Mostafa G.",
         description:
           "Senior Data & AI Engineer (6+ yrs). Building large-scale data platforms and production LLM/agentic systems.",
-        theme_color: "#7c3aed",
-        background_color: "#0a0a0f",
+        theme_color: "#cc5500",
+        background_color: "#f7f3ed",
         display: "standalone",
         orientation: "portrait",
         scope: "/",
@@ -65,6 +65,15 @@ export default defineConfig({
       },
       workbox: {
         navigateFallback: "/",
+        // Never let the SPA-style navigateFallback hijack static assets like
+        // /resume.pdf, /sitemap-index.xml, /robots.txt, etc. Without this,
+        // clicking a same-tab link to resume.pdf from the installed PWA
+        // returns the index page instead of the file.
+        navigateFallbackDenylist: [
+          /^\/resume\.pdf$/,
+          /^\/robots\.txt$/,
+          /\.(pdf|xml|txt|webmanifest|json|ico|png|jpg|jpeg|svg|webp|gif|woff2?)$/i,
+        ],
         globPatterns: [
           "**/*.{html,css,js,svg,png,jpg,jpeg,webp,woff,woff2,ico}",
         ],
