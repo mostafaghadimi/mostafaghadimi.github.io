@@ -78,6 +78,9 @@ export default defineConfig({
         navigateFallbackDenylist: [
           /^\/resume\.pdf$/,
           /^\/robots\.txt$/,
+          // /blog/ is a separate Hugo site on the same origin — never let the
+          // SPA navigateFallback serve the Astro home page for it.
+          /^\/blog(\/|$)/,
           /\.(pdf|xml|txt|webmanifest|json|ico|png|jpg|jpeg|svg|webp|gif|woff2?)$/i,
         ],
         globPatterns: [
