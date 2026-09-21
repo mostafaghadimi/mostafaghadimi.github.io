@@ -81,6 +81,9 @@ export default defineConfig({
           // /blog/ is a separate Hugo site on the same origin — never let the
           // SPA navigateFallback serve the Astro home page for it.
           /^\/blog(\/|$)/,
+          // /data-course/ is a separate GitHub Pages project site on the same
+          // origin — same reason: don't let the SW serve the home page for it.
+          /^\/data-course(\/|$)/,
           /\.(pdf|xml|txt|webmanifest|json|ico|png|jpg|jpeg|svg|webp|gif|woff2?)$/i,
         ],
         globPatterns: [
